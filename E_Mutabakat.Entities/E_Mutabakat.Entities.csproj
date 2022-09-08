@@ -6,4 +6,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Abstract\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\É_Mutabakat.Core\É_Mutabakat.Core.csproj" />
+  </ItemGroup>
+
 </Project>
