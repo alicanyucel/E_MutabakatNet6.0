@@ -11,10 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Abstract\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\E_Mutabakat.Entities\E_Mutabakat.Entities.csproj" />
     <ProjectReference Include="..\É_Mutabakat.Core\É_Mutabakat.Core.csproj" />
   </ItemGroup>
