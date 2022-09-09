@@ -12,6 +12,7 @@ namespace E_Mutabakat.Entities.Concrete
         public int Id { get; set; }
         public int CompanyId { get; set; }
         public int CurrencyId { get; set; }
+        public int CurrencyAccountId { get; set; }
         public string Type { get; set; }
         public int Mounth { get; set; }
         public int Year { get; set; }
