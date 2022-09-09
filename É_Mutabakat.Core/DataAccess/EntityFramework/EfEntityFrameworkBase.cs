@@ -11,7 +11,7 @@ namespace É_Mutabakat.Core.DataAccess.EntityFramework
 {
     public class EfEntityFrameworkBase<TEntity, TContext> : IEntityRepository<TEntity>
           where TEntity : class, IEntity, new()
-        where TContext : DbContext, IEntity,new()
+        where TContext : DbContext,new()
     {
         public void Add(TEntity entity)
         {

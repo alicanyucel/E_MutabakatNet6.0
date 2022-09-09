@@ -8,9 +8,7 @@ using System.Threading.Tasks;
 
 namespace E_Mutabakat.DataAccess.Abstract
 {
-public interface ICompanyDal:IEntityRepository<Company>
+    public interface ICurrencyDal:IEntityRepository<Currency>
     {
-
-
     }
 }

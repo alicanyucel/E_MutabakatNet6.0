@@ -1,4 +1,5 @@
-﻿using System;
+﻿using É_Mutabakat.Core.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace E_Mutabakat.Entities.Concrete
 {
-    public class CurrencyAccount
+    public class CurrencyAccount:IEntity
     {
         public int Id { get; set; }
         public int CompanyId { get; set; }

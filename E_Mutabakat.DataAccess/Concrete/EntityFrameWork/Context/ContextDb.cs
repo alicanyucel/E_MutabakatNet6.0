@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace E_Mutabakat.DataAccess.Concrete.EntityFrameWork.Context
 {
-    public class DataContext:DbContext
+    public class ContextDb:DbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
