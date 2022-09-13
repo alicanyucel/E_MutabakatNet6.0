@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace E_Mutabakat.DataAccess.Concrete.EntityFrameWork
 {
-    public class EfCurrencyDal:EfEntityFrameworkBase<Currency,ContextDb>,ICurrencyDal
+   public class EfEmailParameterDal:EfEntityFrameworkBase<MailParameter,ContextDb>,IMailParameterDal
     {
     }
 }
