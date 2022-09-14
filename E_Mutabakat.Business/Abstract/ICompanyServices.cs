@@ -1,4 +1,5 @@
-﻿using E_Mutabakat.Entities.Concrete;
+﻿using É_Mutabakat.Core.Ultilities.Result.Abstract;
+using E_Mutabakat.Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,8 @@ namespace E_Mutabakat.Business.Abstract
 {
     public interface ICompanyServices
     {
-        List<Company> GetList();
+      IResult Add(Company company);
+
+      IDataResult<List<Company> >GetList();
     }
 }
