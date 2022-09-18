@@ -13,7 +13,6 @@ namespace E_Mutabakat.Entities.Concrete
         public int UserId { get; set; }
         public int OperationClaimId { get; set; }
         public DateTime AddetAt { get; set; }
-
         public bool IsActive { get; set; }
 
     }

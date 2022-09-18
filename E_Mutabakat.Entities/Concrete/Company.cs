@@ -15,7 +15,7 @@ namespace E_Mutabakat.Entities.Concrete
         public string TaxDepartment { get; set; }
         public string TaxIdNumber { get; set; }
         public string IdentityNumber{ get; set; }
-        public DateTime AddedAt { get; set; }
+        public DateTime AddetAt { get; set; }
         public bool IsActive { get; set; }
 
     }

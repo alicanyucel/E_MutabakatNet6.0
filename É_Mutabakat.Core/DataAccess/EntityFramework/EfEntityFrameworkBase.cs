@@ -20,7 +20,7 @@ namespace É_Mutabakat.Core.DataAccess.EntityFramework
                 var addedentity = context.Entry(entity);
                 addedentity.State = EntityState.Added;
                 context.SaveChanges();
-            }
+            }                   
         }
 
         public void Delete(TEntity entity)
@@ -42,7 +42,7 @@ namespace É_Mutabakat.Core.DataAccess.EntityFramework
             }
         }
 
-        public List<TEntity> GetList(Expression<Func<TEntity, bool>> filter = null)
+        public List<TEntity> GetList(Expression<Func<TEntity, bool>> filter =null)
         {
             using (var context = new TContext())
             {
