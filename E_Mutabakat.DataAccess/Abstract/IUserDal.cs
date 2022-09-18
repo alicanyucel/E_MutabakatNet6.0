@@ -10,5 +10,7 @@ namespace E_Mutabakat.DataAccess.Abstract
 {
     public interface IUserDal:IEntityRepository<User>
     {
+        List<OperationClaim> GetClaims(User user,int companyid);
+
     }
 }

@@ -18,6 +18,7 @@ namespace E_Mutabakat.WebApi.Controllers
             {
                 return Ok(result);
             }
+            // veriler basarılı bir sekilde çekildi.
             return BadRequest(result.Message);
         }
     }
