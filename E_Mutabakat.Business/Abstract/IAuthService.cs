@@ -13,7 +13,7 @@ namespace E_Mutabakat.Business.Abstract
     public interface IAuthService
     {
         IDataResult<User> Register(UserForRegisterDto userForRegister, string password);
-        IDataResult<User> Login(UserForRegisterDto userForRegister);
+        IDataResult<User> Login(UserForLoginDto userForLogin);
         IResult UserExists(string email);
         IDataResult<AccessToken> CreateAccessToken(User user);
 
