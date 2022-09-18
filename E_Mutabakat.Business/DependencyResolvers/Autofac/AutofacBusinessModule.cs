@@ -18,6 +18,27 @@ namespace E_Mutabakat.Business.DependencyResolvers.Autofac
             builder.RegisterType<CompanyManager>().As<ICompanyServices>();
             builder.RegisterType<EfCompanyDal>().As<ICompanyDal>();
 
+            builder.RegisterType<AccountReconciliationDetailManager>().As<IAccountReconciliationDetailService>();
+            builder.RegisterType<EfAccountReconcilitiaonDetailDal>().As<IAccountReconciliationDetailDal>();
+
+            builder.RegisterType<AccountReconcilitionManager>().As<IAccountReconcliationService>();
+            builder.RegisterType<EfAccountReconcitiationDal>().As<IAccountReconciliationDal>();
+
+            builder.RegisterType<BabsReconciliationManager>().As<IBabsReconciliationService>();
+            builder.RegisterType<EfBabsReconcliationDal>().As<IBabsReconciliaitonsDal>();
+
+            builder.RegisterType<BabsReconciliationDetailManager>().As<IBabsReconciliationDetailService>();
+            builder.RegisterType<EfBabsReconcliationDetailDal>().As<IBabsReconciliationDetailDal>();
+
+            builder.RegisterType<CurrencyAccountManager>().As<ICurrencyAccountService>();
+            builder.RegisterType<EfCurrencyAccountDal>().As<ICurrencyAccountDal>();
+
+            builder.RegisterType<CurrencyManager>().As<ICurrencyService>();
+            builder.RegisterType<EfCurrencyDal>().As<ICurrencyDal>();
+
+            builder.RegisterType<MailParameterManager>().As<IMailParameterService>();
+            builder.RegisterType<EfEmailParameterDal>().As<IMailParameterDal>();
+
         }
     }
 }
