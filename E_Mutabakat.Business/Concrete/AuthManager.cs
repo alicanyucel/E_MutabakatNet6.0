@@ -14,19 +14,22 @@ using System.Threading.Tasks;
 
 namespace E_Mutabakat.Business.Concrete
 {
-    public class IAuthManager : IAuthService
+    public class AuthManager : IAuthService
     {
         private readonly ITokenHelpers _tokenHelpers;
         private readonly IUserService _userService;
-        public IAuthManager(IUserService userService,ITokenHelpers tokenHelpers)
+        public AuthManager(IUserService userService,ITokenHelpers tokenHelpers)
         {
             _userService = userService;
             _tokenHelpers = tokenHelpers;
         }
 
-        public IDataResult<AccessToken> CreateAccessToken(User user)
+        public IDataResult<AccessToken> CreateAccessToken(User user,int companyid)
         {
-            throw new NotImplementedException();
+            var claims = _userService.GetClaims(user,companyid);
+            var accesstoken = _tokenHelpers.CreateToken(user, claims, companyid);
+            return new SuccesDataResult<AccessToken>(accesstoken);
+
         }
 
         public IDataResult<User> Login(UserForLoginDto userForLogin)
@@ -45,12 +48,34 @@ namespace E_Mutabakat.Business.Concrete
 
         public IDataResult<User> Register(UserForRegisterDto userForRegister, string password)
         {
-            throw new NotImplementedException();
+            // bunları encoidng hamcsha512 ile alacaz veri tabanında
+            byte[] passwordHash, passwordsalt;
+            HashingHelper.CreatePasswordHash(password, out passwordHash, out passwordsalt);
+            var user = new User
+            {
+                Email = userForRegister.Email,
+                AddedAt=DateTime.Now,
+                IsActive = true,
+                MailConfirm = false,
+                MailConfirmDate = DateTime.Now,
+                MailConfirmValue = Guid.NewGuid().ToString(),
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordsalt,
+                Name = userForRegister.Name
+
+            };
+
+            _userService.Add(user);
+            return new SuccesDataResult<User>(user, Messages.UserRegistered);
         }
 
         public IResult UserExists(string email)
         {
-            throw new NotImplementedException();
+           if(_userService.GetByEmail(email)!=null)
+            {
+                return new ErrorResult(Messages.UserAlreadyExists);
+            }
+            return new SuccessResult();
         }
     }
 }

@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace E_Mutabakat.WebApi.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class CompanyController : Controller
     {
         private readonly ICompanyServices _companyServices;

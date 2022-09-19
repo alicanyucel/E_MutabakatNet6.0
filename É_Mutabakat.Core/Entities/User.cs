@@ -14,7 +14,7 @@ namespace E_Mutabakat.Entities.Concrete
         public string Email { get; set; }
         public byte[] PasswordSalt { get; set; }
         public byte[] PasswordHash { get; set; }
-        public DateTime AddetAt { get; set; }
+        public DateTime AddedAt { get; set; }
         public bool IsActive { get; set; }
         public bool MailConfirm { get; set; }
         public string MailConfirmValue { get; set; }

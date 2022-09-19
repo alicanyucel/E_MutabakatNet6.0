@@ -11,7 +11,7 @@ namespace E_Mutabakat.Entities.Concrete
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public DateTime AddetAt { get; set; }
+        public DateTime AddedAt { get; set; }
         public bool IsActive { get; set; }
     }
 }

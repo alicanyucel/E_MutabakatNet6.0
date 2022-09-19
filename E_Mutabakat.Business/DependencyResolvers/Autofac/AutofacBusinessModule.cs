@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using E_Mutabakat.Business.Abstract;
 using E_Mutabakat.Business.Concrete;
+using E_Mutabakat.Core.Ultilities.Security.Jwt;
 using E_Mutabakat.DataAccess.Abstract;
 using E_Mutabakat.DataAccess.Concrete.EntityFrameWork;
 using System;
@@ -39,6 +40,11 @@ namespace E_Mutabakat.Business.DependencyResolvers.Autofac
             builder.RegisterType<MailParameterManager>().As<IMailParameterService>();
             builder.RegisterType<EfEmailParameterDal>().As<IMailParameterDal>();
 
+            builder.RegisterType<UserManager>().As<IUserService>();
+            builder.RegisterType<EfUserDal>().As<IUserDal>();
+
+            builder.RegisterType<AuthManager>().As<IAuthService>();
+            builder.RegisterType<JwtHelpers>().As<ITokenHelpers>();
         }
     }
 }

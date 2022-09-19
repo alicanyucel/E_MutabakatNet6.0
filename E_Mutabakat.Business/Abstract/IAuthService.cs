@@ -15,7 +15,7 @@ namespace E_Mutabakat.Business.Abstract
         IDataResult<User> Register(UserForRegisterDto userForRegister, string password);
         IDataResult<User> Login(UserForLoginDto userForLogin);
         IResult UserExists(string email);
-        IDataResult<AccessToken> CreateAccessToken(User user);
+        IDataResult<AccessToken> CreateAccessToken(User user,int companyid);
 
 
     }

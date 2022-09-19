@@ -21,6 +21,6 @@ namespace E_Mutabakat.Entities.Concrete
         public string? Email { get; set; }
         public string? Authrorized { get; set; }
         public bool IsActive { get; set; }
-        public DateTime AddetAt { get; set; }
+        public DateTime AddedAt { get; set; }
     }
 }
