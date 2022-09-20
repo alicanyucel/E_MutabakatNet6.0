@@ -15,7 +15,7 @@ namespace E_Mutabakat.Entities.Concrete
         public string Password { get; set; }
         public string Smtp { get; set; }
         public int Port { get; set; }
-        public int Ssl { get; set; }
+        public bool Ssl { get; set; }
 
     }
 }
