@@ -84,6 +84,20 @@ namespace E_Mutabakat.Business.Concrete
             _userService.Add(user);
             _companyservice.Add(company);
             _companyservice.UserCompanyAdd(user.Id,company.Id);
+            UserCompanyDto userCompanyDto = new UserCompanyDto
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Email = user.Email,
+                AddedAt = user.AddedAt,
+                companyid = company.Id,
+                IsActive = true,
+                MailConfirm = user.MailConfirm,
+                MailConfirmDate = user.MailConfirmDate,
+                MailConfirmValue = user.MailConfirmValue,
+                PasswordHash = user.PasswordHash,
+                PasswordSalt = user.PasswordSalt
+            };
             return new SuccesDataResult<User>(user, Messages.UserRegistered);
         }
 
