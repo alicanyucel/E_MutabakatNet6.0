@@ -51,7 +51,7 @@ app.UseCors(builder=>builder.WithOrigins("https://localhost:7219").AllowAnyHeade
  * 
  * */
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

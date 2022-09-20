@@ -13,5 +13,9 @@ namespace E_Mutabakat.Business.Abstract
       IResult Add(Company company);
 
       IDataResult<List<Company> >GetList();
+        IResult CompanyExists(Company company);
+        IResult UserCompanyAdd(int userid,int companyid);
+
+
     }
 }

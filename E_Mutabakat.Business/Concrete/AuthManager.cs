@@ -16,12 +16,25 @@ namespace E_Mutabakat.Business.Concrete
 {
     public class AuthManager : IAuthService
     {
+        private readonly ICompanyServices _companyservice;
         private readonly ITokenHelpers _tokenHelpers;
         private readonly IUserService _userService;
-        public AuthManager(IUserService userService,ITokenHelpers tokenHelpers)
+        public AuthManager(IUserService userService,ITokenHelpers tokenHelpers, ICompanyServices companyservice)
         {
             _userService = userService;
             _tokenHelpers = tokenHelpers;
+            _companyservice = companyservice;
+        }
+
+        public IResult CompanyExists(Company company)
+        {
+          var result=_companyservice.CompanyExists(company);
+            if(result !=null)
+            {
+                return new ErrorResult(Messages.CompanyAllReadyExists);
+
+            }
+            return new SuccessResult();
         }
 
         public IDataResult<AccessToken> CreateAccessToken(User user,int companyid)
@@ -49,7 +62,7 @@ namespace E_Mutabakat.Business.Concrete
 
         }
 
-        public IDataResult<User> Register(UserForRegisterDto userForRegister, string password)
+        public IDataResult<User> Register(UserForRegisterDto userForRegister, string password,Company company)
         {
             // bunları encoidng hamcsha512 ile alacaz veri tabanında
             byte[] passwordHash, passwordsalt;
@@ -69,7 +82,32 @@ namespace E_Mutabakat.Business.Concrete
             };
 
             _userService.Add(user);
+            _companyservice.Add(company);
+            _companyservice.UserCompanyAdd(user.Id,company.Id);
             return new SuccesDataResult<User>(user, Messages.UserRegistered);
+        }
+
+        public IDataResult<User> RegisterSecondAccount(UserForRegisterDto userForRegister, string password)
+        {
+            byte[] passwordHash, passwordsalt;
+            HashingHelper.CreatePasswordHash(password, out passwordHash, out passwordsalt);
+            var user = new User
+            {
+                Email = userForRegister.Email,
+                AddedAt = DateTime.Now,
+                IsActive = true,
+                MailConfirm = false,
+                MailConfirmDate = DateTime.Now,
+                MailConfirmValue = Guid.NewGuid().ToString(),
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordsalt,
+                Name = userForRegister.Name
+
+            };
+
+            _userService.Add(user);
+            return new SuccesDataResult<User>(user, Messages.UserRegistered);
+
         }
 
         public IResult UserExists(string email)

@@ -11,6 +11,6 @@ namespace E_Mutabakat.DataAccess.Abstract
 public interface ICompanyDal:IEntityRepository<Company>
     {
 
-
+        void UserCompanyAdd(int userid,int companyid);
     }
 }

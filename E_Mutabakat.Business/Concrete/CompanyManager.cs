@@ -34,12 +34,28 @@ namespace E_Mutabakat.Business.Concrete
             return new SuccessResult(Messages.AddCompany);
         }
 
-        public  IDataResult<List<Company>>GetList()
+        public IResult CompanyExists(Company company)
+        {
+            var result = _companyDal.Get(c => c.Name == company.Name && c.TaxDepartment == company.TaxDepartment && c.TaxIdNumber == company.TaxIdNumber && c.IdentityNumber == company.IdentityNumber);
+            if(result!=null)
+            {
+                return new ErrorResult(Messages.CompanyAllReadyExists);
+            }
+            return new SuccessResult();
+
+        }
+        public IDataResult<List<Company>> GetList()
         {
 
             return new SuccesDataResult<List<Company>>(_companyDal.GetList());
         }
 
-      
+        public IResult UserCompanyAdd(int userid, int companyid)
+        {
+
+            _companyDal.UserCompanyAdd(userid,companyid);
+            return new SuccessResult();
+
+        }
     }
 }

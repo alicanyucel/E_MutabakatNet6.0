@@ -10,9 +10,23 @@ using System.Threading.Tasks;
 
 namespace E_Mutabakat.DataAccess.Concrete.EntityFrameWork
 {
-    public class EfCompanyDal:EfEntityFrameworkBase<Company,ContextDb>,ICompanyDal
+    public class EfCompanyDal : EfEntityFrameworkBase<Company, ContextDb>, ICompanyDal
     {
+        public void UserCompanyAdd(int userid, int companyid)
+        {
+            using (var context=new ContextDb())
+            {
+                UserCompany userCompany = new UserCompany()
+                {
+                    UserId = userid,
+                    CompanyId = companyid,
+                    AddedAt = DateTime.Now,
+                    IsActive = true,
 
+                };
+                context.UserCompanies.Add(userCompany);
 
+            }
+        }
     }
 }

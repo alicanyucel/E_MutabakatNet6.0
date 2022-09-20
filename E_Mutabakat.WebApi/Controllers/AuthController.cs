@@ -1,4 +1,5 @@
 ﻿using E_Mutabakat.Business.Abstract;
+using E_Mutabakat.Entities.Concrete;
 using E_Mutabakat.Entities.Dtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,14 +17,22 @@ namespace E_Mutabakat.WebApi.Controllers
             _authService = authService;
         }
         [HttpPost("register")]
-        public IActionResult Register(UserForRegisterDto userforRegister)
+        public IActionResult Register(UserForRegisterDto userforRegister,Company company)
         { 
             var userExits = _authService.UserExists(userforRegister.Name);
             if(!userExits.Success)
             {
                 return BadRequest(userExits.Message);
             }
-            var registerResult = _authService.Register(userforRegister, userforRegister.Password);
+            var CompanyExists = _authService.CompanyExists(company);
+            if (!CompanyExists.Success)
+            {
+                return BadRequest(userExits.Message);
+            }
+
+            var registerResult = _authService.Register(userforRegister, userforRegister.Password,company);
+
+
             return BadRequest(registerResult.Message);
         }
         [HttpPost("login")]
