@@ -26,21 +26,15 @@ namespace E_Mutabakat.WebApi.Controllers
             var registerResult = _authService.Register(userforRegister, userforRegister.Password);
             return BadRequest(registerResult.Message);
         }
-        [HttpPost("Login")]
+        [HttpPost("login")]
         public IActionResult Login(UserForLoginDto userForLogin)
         {
-            var usertologin = _authService.Login(userForLogin);
-            if(!usertologin.Success)
+            var userToLogin = _authService.Login(userForLogin);
+            if (!userToLogin.Success)
             {
-                return BadRequest(usertologin.Message);
+                return BadRequest(userToLogin.Message);
             }
-            var result = _authService.CreateAccessToken(usertologin.Data,0);
-            if(result.Success)
-            {
-                return Ok(result.Data);
-            }
-            return BadRequest(result.Message);
-
+            return Ok(userToLogin);
         }
     }
 }

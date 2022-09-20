@@ -22,11 +22,10 @@ namespace E_Mutabakat.Business.Concrete
             _userDal.Add(user);
         }
 
-        public User GetByEmail(string email)
+        public User GetByMail(string email)
         {
-            return _userDal.Get(P => P.Email == null);
+            return _userDal.Get(p => p.Email == email);
         }
-
 
         public List<OperationClaim> GetClaims(User user,int companyid)
         {

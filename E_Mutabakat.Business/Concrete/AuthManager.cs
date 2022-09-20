@@ -34,16 +34,19 @@ namespace E_Mutabakat.Business.Concrete
 
         public IDataResult<User> Login(UserForLoginDto userForLogin)
         {
-            var usertocheck = _userService.GetByEmail(userForLogin.Email);
-            if (usertocheck == null)
+            var userToCheck = _userService.GetByMail(userForLogin.Email);
+            if (userToCheck == null)
             {
                 return new ErrorDataResult<User>(Messages.UserNotFound);
             }
-            if (!HashingHelper.VerifyPasswordHash(userForLogin.Password, usertocheck.PasswordHash, usertocheck.PasswordSalt))
+
+            if (!HashingHelper.VerifyPasswordHash(userForLogin.Password, userToCheck.PasswordHash, userToCheck.PasswordSalt))
             {
                 return new ErrorDataResult<User>(Messages.PasswordError);
             }
-            return new SuccesDataResult<User>(usertocheck, Messages.SuccessfulLogin);
+
+            return new SuccesDataResult<User>(userToCheck, Messages.SuccessfulLogin);
+
         }
 
         public IDataResult<User> Register(UserForRegisterDto userForRegister, string password)
@@ -71,7 +74,7 @@ namespace E_Mutabakat.Business.Concrete
 
         public IResult UserExists(string email)
         {
-           if(_userService.GetByEmail(email)!=null)
+           if(_userService.GetByMail(email)!=null)
             {
                 return new ErrorResult(Messages.UserAlreadyExists);
             }

@@ -19,7 +19,7 @@ namespace E_Mutabakat.DataAccess.Concrete.EntityFrameWork
                 var result = from OperationClaim in context.OperationClaims
                              join UserOperationClaim in context.UserOperationClaims
                              on OperationClaim.Id equals UserOperationClaim.OperationClaimId
-                             where UserOperationClaim.CompanyId == companyid && UserOperationClaim.UserId == user.Id
+                             where UserOperationClaim.Id == companyid && UserOperationClaim.UserId == user.Id
                              select new OperationClaim
                              {
                                  Id=OperationClaim.Id,
