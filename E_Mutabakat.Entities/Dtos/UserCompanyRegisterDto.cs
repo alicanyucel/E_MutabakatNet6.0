@@ -7,11 +7,9 @@ using System.Threading.Tasks;
 
 namespace E_Mutabakat.Entities.Dtos
 {
-    public class UserCompanyDto:User
+    public class UserCompanyRegisterDto
     {
-       public int companyid { get; set; }   
-
-
-
+        public UserForRegisterDto UserForRegister { get; set; }
+       public  Company company { get; set; }
     }
 }

@@ -29,7 +29,7 @@ namespace E_Mutabakat.Business.Concrete
         public IResult CompanyExists(Company company)
         {
           var result=_companyservice.CompanyExists(company);
-            if(result !=null)
+            if(result.Success==false)
             {
                 return new ErrorResult(Messages.CompanyAllReadyExists);
 
@@ -62,7 +62,7 @@ namespace E_Mutabakat.Business.Concrete
 
         }
 
-        public IDataResult<User> Register(UserForRegisterDto userForRegister, string password,Company company)
+        public IDataResult<UserCompanyDto> Register(UserForRegisterDto userForRegister, string password,Company company)
         {
             // bunları encoidng hamcsha512 ile alacaz veri tabanında
             byte[] passwordHash, passwordsalt;
@@ -98,7 +98,10 @@ namespace E_Mutabakat.Business.Concrete
                 PasswordHash = user.PasswordHash,
                 PasswordSalt = user.PasswordSalt
             };
-            return new SuccesDataResult<User>(user, Messages.UserRegistered);
+            _userService.Add(user);
+            _companyservice.Add(company);
+            return new SuccesDataResult<UserCompanyDto>(userCompanyDto, Messages.UserRegistered);
+
         }
 
         public IDataResult<User> RegisterSecondAccount(UserForRegisterDto userForRegister, string password)
@@ -132,5 +135,7 @@ namespace E_Mutabakat.Business.Concrete
             }
             return new SuccessResult();
         }
+
+      
     }
 }

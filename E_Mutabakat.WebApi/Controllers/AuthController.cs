@@ -17,25 +17,18 @@ namespace E_Mutabakat.WebApi.Controllers
             _authService = authService;
         }
         [HttpPost("register")]
-        public IActionResult Register(UserForRegisterDto userforRegister,Company company)
-        { 
-            var userExits = _authService.UserExists(userforRegister.Name);
-            if(!userExits.Success)
-            {
-                return BadRequest(userExits.Message);
-            }
-            var CompanyExists = _authService.CompanyExists(company);
-            if (!CompanyExists.Success)
-            {
-                return BadRequest(userExits.Message);
-            }
+        public IActionResult Register(UserCompanyRegisterDto userCompanyRegisterDto)
+        {
 
-            var registerResult = _authService.Register(userforRegister, userforRegister.Password,company);
+            var registerResult = _authService.Register(userCompanyRegisterDto.UserForRegister, userCompanyRegisterDto.UserForRegister.Password, userCompanyRegisterDto.company);
 
-
+           
             return BadRequest(registerResult.Message);
         }
-        [HttpPost("login")]
+
+
+    
+    [HttpPost("login")]
         public IActionResult Login(UserForLoginDto userForLogin)
         {
             var userToLogin = _authService.Login(userForLogin);
