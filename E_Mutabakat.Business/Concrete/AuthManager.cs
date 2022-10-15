@@ -16,11 +16,15 @@ namespace E_Mutabakat.Business.Concrete
 {
     public class AuthManager : IAuthService
     {
+        private readonly IMailService _mailService;
+        private readonly IMailParameterService _mailParameterService;
         private readonly ICompanyServices _companyservice;
         private readonly ITokenHelpers _tokenHelpers;
         private readonly IUserService _userService;
-        public AuthManager(IUserService userService,ITokenHelpers tokenHelpers, ICompanyServices companyservice)
+        public AuthManager(IUserService userService,ITokenHelpers tokenHelpers, ICompanyServices companyservice,IMailService mailService,IMailParameterService mailParameterService)
         {
+            _mailService =mailService;
+            _mailParameterService = mailParameterService;
             _userService = userService;
             _tokenHelpers = tokenHelpers;
             _companyservice = companyservice;
@@ -98,8 +102,17 @@ namespace E_Mutabakat.Business.Concrete
                 PasswordHash = user.PasswordHash,
                 PasswordSalt = user.PasswordSalt
             };
-            _userService.Add(user);
-            _companyservice.Add(company);
+            var mailparameter = _mailParameterService.Get(4);
+            SendMailDtos sendMailDtos = new SendMailDtos()
+            {
+                mailParameter = mailparameter.Data,
+                Email = user.Email,
+                Subject="kullanıcı onay maili",
+                Body="kullanici sisteme kayit oldu.Kaydı tamamlamak icin asagidaki linke tıklayiniz"
+                
+            };
+            _mailService.SendEmail(sendMailDtos);
+
             return new SuccesDataResult<UserCompanyDto>(userCompanyDto, Messages.UserRegistered);
 
         }

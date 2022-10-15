@@ -40,6 +40,9 @@ namespace E_Mutabakat.Business.DependencyResolvers.Autofac
             builder.RegisterType<MailParameterManager>().As<IMailParameterService>();
             builder.RegisterType<EfEmailParameterDal>().As<IMailParameterDal>();
 
+            builder.RegisterType<MailManager>().As<IMailService>();
+            builder.RegisterType<EfMailDal>().As<IMailDal>();
+
             builder.RegisterType<UserManager>().As<IUserService>();
             builder.RegisterType<EfUserDal>().As<IUserDal>();
 
