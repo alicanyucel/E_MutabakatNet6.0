@@ -11,7 +11,7 @@ namespace E_Mutabakat.Business.Abstract
     public interface IMailParameterService
     {
         IResult Update(MailParameter mailParameter);
-        IDataResult<MailParameter> Get(int companyId);
+        IDataResult<MailParameter> Get(int companyid);
          
     }
 }
