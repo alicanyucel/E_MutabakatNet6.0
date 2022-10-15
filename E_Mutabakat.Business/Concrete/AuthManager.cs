@@ -1,6 +1,7 @@
 ﻿using E_Mutabakat.Business.Abstract;
 using E_Mutabakat.Business.Constans;
 using E_Mutabakat.Business.ValidationRules.FluentValidation;
+using E_Mutabakat.Core.Aspect.Autofac.Transaction;
 using E_Mutabakat.Core.CrossCuttingConcerns.Validation;
 using E_Mutabakat.Core.Ultilities.Hashing;
 using É_Mutabakat.Core.Ultilities.Result.Abstract;
@@ -68,7 +69,7 @@ namespace E_Mutabakat.Business.Concrete
             return new SuccesDataResult<User>(userToCheck, Messages.SuccessfulLogin);
 
         }
-
+        [TransactionScopeAspect]
         public IDataResult<UserCompanyDto> Register(UserForRegisterDto userForRegister, string password,Company company)
         {
             // bunları encoidng hamcsha512 ile alacaz veri tabanında
