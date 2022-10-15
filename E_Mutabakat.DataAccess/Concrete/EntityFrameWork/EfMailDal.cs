@@ -26,7 +26,9 @@ namespace E_Mutabakat.DataAccess.Concrete.EntityFrameWork
                     smtp.UseDefaultCredentials = false;
                     smtp.Credentials = new NetworkCredential(sendEmailDtos.mailParameter.Email,sendEmailDtos.mailParameter.Password);
                     smtp.EnableSsl = sendEmailDtos.mailParameter.Ssl;
+                    smtp.Port = sendEmailDtos.mailParameter.Port;
                     smtp.Send(mail);
+
                 }
 
             }

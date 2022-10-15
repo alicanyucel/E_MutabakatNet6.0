@@ -1,11 +1,14 @@
 ﻿using E_Mutabakat.Business.Abstract;
 using E_Mutabakat.Business.Constans;
+using E_Mutabakat.Business.ValidationRules.FluentValidation;
+using E_Mutabakat.Core.CrossCuttingConcerns.Validation;
 using E_Mutabakat.Core.Ultilities.Hashing;
 using É_Mutabakat.Core.Ultilities.Result.Abstract;
 using É_Mutabakat.Core.Ultilities.Result.Concrete;
 using E_Mutabakat.Core.Ultilities.Security.Jwt;
 using E_Mutabakat.Entities.Concrete;
 using E_Mutabakat.Entities.Dtos;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -84,6 +87,8 @@ namespace E_Mutabakat.Business.Concrete
                 Name = userForRegister.Name
 
             };
+            ValidationTool.Validate(new UserValidator(),user);
+            ValidationTool.Validate(new CompanyValidator(), company);
 
             _userService.Add(user);
             _companyservice.Add(company);

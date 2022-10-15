@@ -1,7 +1,9 @@
 ﻿using E_Mutabakat.Business.Abstract;
+using E_Mutabakat.Business.ValidationRules.FluentValidation;
 using E_Mutabakat.DataAccess.Abstract;
 using E_Mutabakat.Entities.Concrete;
 using System;
+using FluentValidation;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +21,7 @@ namespace E_Mutabakat.Business.Concrete
 
         public void Add(User user)
         {
+           
             _userDal.Add(user);
         }
 
