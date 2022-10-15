@@ -1,5 +1,7 @@
 ﻿using E_Mutabakat.Business.Abstract;
 using E_Mutabakat.Business.Constans;
+using E_Mutabakat.Business.ValidationRules.FluentValidation;
+using E_Mutabakat.Core.Aspect.Autofac.Validation;
 using É_Mutabakat.Core.Ultilities.Result.Abstract;
 using É_Mutabakat.Core.Ultilities.Result.Concrete;
 using E_Mutabakat.DataAccess.Abstract;
@@ -26,7 +28,7 @@ namespace E_Mutabakat.Business.Concrete
         {
             _companyDal = companyDal;
         }
-
+        [ValidationAspect(typeof(CompanyValidator))]
         public IResult Add(Company company)
         {
 

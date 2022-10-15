@@ -1,6 +1,9 @@
 ﻿using Autofac;
+using Autofac.Extras.DynamicProxy;
+using Castle.DynamicProxy;
 using E_Mutabakat.Business.Abstract;
 using E_Mutabakat.Business.Concrete;
+using E_Mutabakat.Core.Ultilities.InterCeptors;
 using E_Mutabakat.Core.Ultilities.Security.Jwt;
 using E_Mutabakat.DataAccess.Abstract;
 using E_Mutabakat.DataAccess.Concrete.EntityFrameWork;
@@ -48,6 +51,11 @@ namespace E_Mutabakat.Business.DependencyResolvers.Autofac
 
             builder.RegisterType<AuthManager>().As<IAuthService>();
             builder.RegisterType<JwtHelpers>().As<ITokenHelpers>();
+            var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces().EnableInterfaceInterceptors(new ProxyGenerationOptions()
+            {
+                Selector = new AspectInterceptorSelector()
+            }). SingleInstance();
         }
     }
 }
