@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace E_Mutabakat.Entities.Dtos
 {
-    public class UserForRegisterDto
+    public class UserForRegisterDto:IDto
     {
        
         public string Name { get; set; }

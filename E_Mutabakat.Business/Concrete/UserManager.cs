@@ -30,6 +30,11 @@ namespace E_Mutabakat.Business.Concrete
             return _userDal.Get(p => p.Email == email);
         }
 
+        public User GetByMailConfirmValue(string value)
+        {
+            return _userDal.Get(p => p.MailConfirmValue == value);
+        }
+
         public List<OperationClaim> GetClaims(User user,int companyid)
         {
             return _userDal.GetClaims(user, companyid);

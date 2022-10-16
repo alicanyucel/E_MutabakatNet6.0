@@ -20,13 +20,15 @@ namespace E_Mutabakat.Business.Concrete
 {
     public class AuthManager : IAuthService
     {
+        private readonly IMailTemplateService _mailTemplateService;
         private readonly IMailService _mailService;
         private readonly IMailParameterService _mailParameterService;
         private readonly ICompanyServices _companyservice;
         private readonly ITokenHelpers _tokenHelpers;
         private readonly IUserService _userService;
-        public AuthManager(IUserService userService,ITokenHelpers tokenHelpers, ICompanyServices companyservice,IMailService mailService,IMailParameterService mailParameterService)
+        public AuthManager(IUserService userService,ITokenHelpers tokenHelpers,IMailTemplateService mailTemplateService, ICompanyServices companyservice,IMailService mailService,IMailParameterService mailParameterService)
         {
+            _mailTemplateService = mailTemplateService;
             _mailService =mailService;
             _mailParameterService = mailParameterService;
             _userService = userService;
@@ -51,6 +53,11 @@ namespace E_Mutabakat.Business.Concrete
             var accesstoken = _tokenHelpers.CreateToken(user, claims, companyid);
             return new SuccesDataResult<AccessToken>(accesstoken);
 
+        }
+
+        public IDataResult<User> GetByMailConfirmValue(string value)
+        {
+           
         }
 
         public IDataResult<User> Login(UserForLoginDto userForLogin)
@@ -108,14 +115,24 @@ namespace E_Mutabakat.Business.Concrete
                 PasswordHash = user.PasswordHash,
                 PasswordSalt = user.PasswordSalt
             };
+            string Subject = "kullanici kayit onay maili";
+            string link = "https://localhost:7219/api/Auth/confirmuser?value" + user.MailConfirmValue;
+            string linkDescription = "kaydi onaylamak icin tiklayiniz";
+            string Body = "kullanici sisteme kayit oldu kaydınınızı tamamlamak icin asagidaki baglantiyi tiklayiniz";
+            var mailTemplate = _mailTemplateService.GetByTemplateName("kayit",4);
             var mailparameter = _mailParameterService.Get(4);
+            string TemplateBody = mailTemplate.Data.Value;
+            TemplateBody = TemplateBody.Replace("{{title}}",Subject);
+            TemplateBody = TemplateBody.Replace("{{message}}", Body);
+            TemplateBody = TemplateBody.Replace("{{link}}", link);
+            TemplateBody = TemplateBody.Replace("{{linkDescription}}", linkDescription);
+
             SendMailDtos sendMailDtos = new SendMailDtos()
             {
                 mailParameter = mailparameter.Data,
                 Email = user.Email,
-                Subject="kullanıcı onay maili",
-                Body="kullanici sisteme kayit oldu.Kaydı tamamlamak icin asagidaki linke tıklayiniz"
-                
+                Subject = "kullanıcı kayit onay maili",
+                Body = TemplateBody                
             };
             _mailService.SendEmail(sendMailDtos);
 

@@ -38,5 +38,11 @@ namespace E_Mutabakat.WebApi.Controllers
             }
             return Ok(userToLogin);
         }
+        [HttpGet("confirmuser")]
+        public IActionResult ConfirmUser(string value)
+        {
+
+            return Ok();
+        }
     }
 }

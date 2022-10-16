@@ -12,7 +12,7 @@ namespace E_Mutabakat.Business.Abstract
         List<OperationClaim> GetClaims(User user,int companyid);
         void Add(User user);
         User GetByMail(string email);
-
+        User GetByMailConfirmValue(string value);
 
     }
 }

@@ -1,4 +1,5 @@
-﻿using E_Mutabakat.Entities.Concrete;
+﻿using E_Mutabakat.Core.Entities;
+using E_Mutabakat.Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace E_Mutabakat.Entities.Dtos
 {
-    public class SendMailDtos
+    public class SendMailDtos:IDto
     {
         public MailParameter mailParameter { get; set; }
         public string Email { get; set; }

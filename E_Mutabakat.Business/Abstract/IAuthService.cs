@@ -15,6 +15,7 @@ namespace E_Mutabakat.Business.Abstract
         IDataResult<UserCompanyDto> Register(UserForRegisterDto userForRegister, string password,Company company);
         IDataResult<User> RegisterSecondAccount(UserForRegisterDto userForRegister, string password);
         IDataResult<User> Login(UserForLoginDto userForLogin);
+        IDataResult<User> GetByMailConfirmValue(string value);
         IResult UserExists(string email);
         IDataResult<AccessToken> CreateAccessToken(User user,int companyid);
         IResult CompanyExists(Company company);

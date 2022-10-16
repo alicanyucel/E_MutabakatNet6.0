@@ -8,6 +8,9 @@ namespace E_Mutabakat.Business.Constans
 {
    public class Messages
     {
+        public static string MailTemplateUpdated = "mesaj guncellendi";
+        public static string MailTemplateDeleted = "mesaj silindi";
+        public static string MailTemplateAdded = "mesaj eklendi";
         public static string MailSendSuccesfull = "mesaj gonderildi";
         public static string AddCompany="sirket kaydi basarili olarak yapildi";
         public static string UserAlreadyExists = "kullanııc zaten var";
