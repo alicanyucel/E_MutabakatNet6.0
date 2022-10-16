@@ -13,6 +13,7 @@ namespace E_Mutabakat.Business.Abstract
         void Add(User user);
         User GetByMail(string email);
         User GetByMailConfirmValue(string value);
-
+        void Update(User user);
+        User GetById(int id);
     }
 }

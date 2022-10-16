@@ -25,6 +25,11 @@ namespace E_Mutabakat.Business.Concrete
             _userDal.Add(user);
         }
 
+        public User GetById(int id)
+        {
+            return _userDal.Get(u=>u.Id==id);
+        }
+
         public User GetByMail(string email)
         {
             return _userDal.Get(p => p.Email == email);
@@ -38,6 +43,11 @@ namespace E_Mutabakat.Business.Concrete
         public List<OperationClaim> GetClaims(User user,int companyid)
         {
             return _userDal.GetClaims(user, companyid);
+        }
+
+        public void Update(User user)
+        {
+            _userDal.Update(user);
         }
     }
 }

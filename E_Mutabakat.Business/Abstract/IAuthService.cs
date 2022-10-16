@@ -13,13 +13,14 @@ namespace E_Mutabakat.Business.Abstract
     public interface IAuthService
     {
         IDataResult<UserCompanyDto> Register(UserForRegisterDto userForRegister, string password,Company company);
-        IDataResult<User> RegisterSecondAccount(UserForRegisterDto userForRegister, string password);
+        IDataResult<User> RegisterSecondAccount(UserForRegisterDto userForRegister, string password,int companyid);
         IDataResult<User> Login(UserForLoginDto userForLogin);
         IDataResult<User> GetByMailConfirmValue(string value);
         IResult UserExists(string email);
         IDataResult<AccessToken> CreateAccessToken(User user,int companyid);
         IResult CompanyExists(Company company);
-
-
+        IResult Update(User user);
+        IDataResult<User> GetById(int id);
+        IResult SentConfirmEmail(User user);
     }
 }

@@ -26,10 +26,10 @@ namespace E_Mutabakat.Business.Concrete
         private readonly ICompanyServices _companyservice;
         private readonly ITokenHelpers _tokenHelpers;
         private readonly IUserService _userService;
-        public AuthManager(IUserService userService,ITokenHelpers tokenHelpers,IMailTemplateService mailTemplateService, ICompanyServices companyservice,IMailService mailService,IMailParameterService mailParameterService)
+        public AuthManager(IUserService userService, ITokenHelpers tokenHelpers, IMailTemplateService mailTemplateService, ICompanyServices companyservice, IMailService mailService, IMailParameterService mailParameterService)
         {
             _mailTemplateService = mailTemplateService;
-            _mailService =mailService;
+            _mailService = mailService;
             _mailParameterService = mailParameterService;
             _userService = userService;
             _tokenHelpers = tokenHelpers;
@@ -38,8 +38,8 @@ namespace E_Mutabakat.Business.Concrete
 
         public IResult CompanyExists(Company company)
         {
-          var result=_companyservice.CompanyExists(company);
-            if(result.Success==false)
+            var result = _companyservice.CompanyExists(company);
+            if (result.Success == false)
             {
                 return new ErrorResult(Messages.CompanyAllReadyExists);
 
@@ -47,17 +47,21 @@ namespace E_Mutabakat.Business.Concrete
             return new SuccessResult();
         }
 
-        public IDataResult<AccessToken> CreateAccessToken(User user,int companyid)
+        public IDataResult<AccessToken> CreateAccessToken(User user, int companyid)
         {
-            var claims = _userService.GetClaims(user,companyid);
+            var claims = _userService.GetClaims(user, companyid);
             var accesstoken = _tokenHelpers.CreateToken(user, claims, companyid);
             return new SuccesDataResult<AccessToken>(accesstoken);
 
         }
+        public IDataResult<User> GetById(int id)
+        {
+            return new SuccesDataResult<User>(_userService.GetById(id));
+        }
 
         public IDataResult<User> GetByMailConfirmValue(string value)
         {
-           
+            return new SuccesDataResult<User>(_userService.GetByMailConfirmValue(value));
         }
 
         public IDataResult<User> Login(UserForLoginDto userForLogin)
@@ -77,7 +81,7 @@ namespace E_Mutabakat.Business.Concrete
 
         }
         [TransactionScopeAspect]
-        public IDataResult<UserCompanyDto> Register(UserForRegisterDto userForRegister, string password,Company company)
+        public IDataResult<UserCompanyDto> Register(UserForRegisterDto userForRegister, string password, Company company)
         {
             // bunları encoidng hamcsha512 ile alacaz veri tabanında
             byte[] passwordHash, passwordsalt;
@@ -85,7 +89,7 @@ namespace E_Mutabakat.Business.Concrete
             var user = new User
             {
                 Email = userForRegister.Email,
-                AddedAt=DateTime.Now,
+                AddedAt = DateTime.Now,
                 IsActive = true,
                 MailConfirm = false,
                 MailConfirmDate = DateTime.Now,
@@ -95,12 +99,13 @@ namespace E_Mutabakat.Business.Concrete
                 Name = userForRegister.Name
 
             };
-            ValidationTool.Validate(new UserValidator(),user);
+
+            ValidationTool.Validate(new UserValidator(), user);
             ValidationTool.Validate(new CompanyValidator(), company);
 
             _userService.Add(user);
             _companyservice.Add(company);
-            _companyservice.UserCompanyAdd(user.Id,company.Id);
+            _companyservice.UserCompanyAdd(user.Id, company.Id);
             UserCompanyDto userCompanyDto = new UserCompanyDto
             {
                 Id = user.Id,
@@ -115,32 +120,37 @@ namespace E_Mutabakat.Business.Concrete
                 PasswordHash = user.PasswordHash,
                 PasswordSalt = user.PasswordSalt
             };
+            SendConfirmEmail(user);
+            return new SuccesDataResult<UserCompanyDto>(userCompanyDto, Messages.UserRegistered);
+        }
+        void SendConfirmEmail(User user)
+        {
             string Subject = "kullanici kayit onay maili";
             string link = "https://localhost:7219/api/Auth/confirmuser?value" + user.MailConfirmValue;
             string linkDescription = "kaydi onaylamak icin tiklayiniz";
             string Body = "kullanici sisteme kayit oldu kaydınınızı tamamlamak icin asagidaki baglantiyi tiklayiniz";
-            var mailTemplate = _mailTemplateService.GetByTemplateName("kayit",4);
+            var mailTemplate = _mailTemplateService.GetByTemplateName("kayit", 4);
             var mailparameter = _mailParameterService.Get(4);
             string TemplateBody = mailTemplate.Data.Value;
-            TemplateBody = TemplateBody.Replace("{{title}}",Subject);
+            TemplateBody = TemplateBody.Replace("{{title}}", Subject);
             TemplateBody = TemplateBody.Replace("{{message}}", Body);
             TemplateBody = TemplateBody.Replace("{{link}}", link);
             TemplateBody = TemplateBody.Replace("{{linkDescription}}", linkDescription);
-
+            var mailParameter = _mailParameterService.Get(4);
             SendMailDtos sendMailDtos = new SendMailDtos()
             {
                 mailParameter = mailparameter.Data,
                 Email = user.Email,
                 Subject = "kullanıcı kayit onay maili",
-                Body = TemplateBody                
+                Body = TemplateBody
             };
             _mailService.SendEmail(sendMailDtos);
-
-            return new SuccesDataResult<UserCompanyDto>(userCompanyDto, Messages.UserRegistered);
-
+            user.MailConfirmDate = DateTime.Now;
+            _userService.Update(user);
         }
+        
 
-        public IDataResult<User> RegisterSecondAccount(UserForRegisterDto userForRegister, string password)
+        public IDataResult<User> RegisterSecondAccount(UserForRegisterDto userForRegister, string password,int companyid)
         {
             byte[] passwordHash, passwordsalt;
             HashingHelper.CreatePasswordHash(password, out passwordHash, out passwordsalt);
@@ -159,8 +169,16 @@ namespace E_Mutabakat.Business.Concrete
             };
 
             _userService.Add(user);
+            _companyservice.UserCompanyAdd(user.Id,companyid);
+            SendConfirmEmail(user);
             return new SuccesDataResult<User>(user, Messages.UserRegistered);
 
+        }
+
+        public IResult Update(User user)
+        {
+            _userService.Update(user);
+            return new SuccessResult(Messages.UserMailConfirmSuccesfull);
         }
 
         public IResult UserExists(string email)
@@ -172,6 +190,31 @@ namespace E_Mutabakat.Business.Concrete
             return new SuccessResult();
         }
 
-      
+        IResult IAuthService.SentConfirmEmail(User user)
+        {
+            if(user.MailConfirm==true)
+            {
+                return new ErrorResult(Messages.MailAlreadyConfirm);
+            }
+            DateTime confirmmaildate = user.MailConfirmDate;
+            DateTime now = DateTime.Now;
+            if (confirmmaildate.ToShortDateString() == now.ToShortDateString())
+            {
+                if (confirmmaildate.Hour == now.Hour && confirmmaildate.AddMinutes(5).Minute <= now.Minute)
+                {
+                    SendConfirmEmail(user);
+                    return new SuccessResult(Messages.MailConfirmTİmeHasNotExpired);
+                }
+                else
+                {
+                    return new ErrorResult(Messages.MailConfirmTİmeHasNotExpired);
+                }
+            }
+            SendConfirmEmail(user);
+            return new SuccessResult(Messages.MailConfirmSendSuccessfull);
+
+        }
+
+        
     }
 }

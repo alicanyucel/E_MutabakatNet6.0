@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace E_Mutabakat.Entities.Dtos
 {
-    public class UserCompanyRegisterDto:IDto
+    public class UserCompanyRegisterDto : IDto
     {
         public UserForRegisterDto UserForRegister { get; set; }
-       public  Company company { get; set; }
+        public Company company { get; set; }
     }
 }
