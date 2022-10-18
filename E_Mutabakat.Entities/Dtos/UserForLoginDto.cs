@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace E_Mutabakat.Entities.Dtos
 {
-    public class UserForLoginDto:IDto
+    public class UserForLoginDto : IDto
     {
         public string Email { get; set; }
-       public string Password { get; set; }
+        public string Password { get; set; }
+        public int CompanyId { get; set; }
 
     }
 }

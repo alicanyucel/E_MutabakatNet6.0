@@ -53,7 +53,23 @@ namespace E_Mutabakat.WebApi.Controllers
             if (!userToLogin.Success)
             {
                 return BadRequest(userToLogin.Message);
+
             }
+         if(userToLogin.Data.IsActive)
+            {
+                var usercompany = _authService.GetCompany(userToLogin.Data.Id).Data;
+                var result = _authService.CreateAccessToken(userToLogin.Data,userForLogin.CompanyId);
+                 if(result.Success)
+                {
+                    return Ok(result.Data);
+                }
+                return BadRequest(result.Message);
+            }
+
+            return BadRequest("kullanici pasif durumda aktif etmek icin yöneticinize basvurun");
+           
+
+     
             return Ok(userToLogin);
         }
         [HttpGet("confirmuser")]

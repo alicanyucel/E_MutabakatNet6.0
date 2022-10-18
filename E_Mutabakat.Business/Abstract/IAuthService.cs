@@ -12,6 +12,7 @@ namespace E_Mutabakat.Business.Abstract
 {
     public interface IAuthService
     {
+        IDataResult<UserCompany> GetCompany(int userid);
         IDataResult<UserCompanyDto> Register(UserForRegisterDto userForRegister, string password,Company company);
         IDataResult<User> RegisterSecondAccount(UserForRegisterDto userForRegister, string password,int companyid);
         IDataResult<User> Login(UserForLoginDto userForLogin);

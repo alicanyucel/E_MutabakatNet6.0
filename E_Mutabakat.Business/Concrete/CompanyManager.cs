@@ -46,6 +46,12 @@ namespace E_Mutabakat.Business.Concrete
             return new SuccessResult();
 
         }
+
+        public IDataResult<UserCompany> GetCompany(int userid)
+        {
+            return new SuccesDataResult<UserCompany>(_companyDal.GetCompany(userid));
+        }
+
         public IDataResult<List<Company>> GetList()
         {
 

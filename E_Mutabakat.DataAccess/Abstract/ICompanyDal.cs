@@ -10,7 +10,7 @@ namespace E_Mutabakat.DataAccess.Abstract
 {
 public interface ICompanyDal:IEntityRepository<Company>
     {
-
+       UserCompany GetCompany(int userid);
         void UserCompanyAdd(int userid,int companyid);
     }
 }

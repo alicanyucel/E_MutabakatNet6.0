@@ -215,6 +215,9 @@ namespace E_Mutabakat.Business.Concrete
 
         }
 
-        
+        public IDataResult<UserCompany> GetCompany(int userid)
+        {
+            return new SuccesDataResult<UserCompany>(_companyservice.GetCompany(userid).Data);
+        }
     }
 }

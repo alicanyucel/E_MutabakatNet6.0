@@ -12,6 +12,15 @@ namespace E_Mutabakat.DataAccess.Concrete.EntityFrameWork
 {
     public class EfCompanyDal : EfEntityFrameworkBase<Company, ContextDb>, ICompanyDal
     {
+        public UserCompany GetCompany(int userid)
+        {
+            using(var context=new ContextDb())
+            {
+                var result = context.UserCompanies.Where(p => p.UserId == userid).FirstOrDefault();
+                return result;
+            }
+        }
+
         public void UserCompanyAdd(int userid, int companyid)
         {
             using (var context=new ContextDb())
