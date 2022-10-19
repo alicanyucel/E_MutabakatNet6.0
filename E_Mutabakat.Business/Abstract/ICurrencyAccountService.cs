@@ -10,6 +10,7 @@ namespace E_Mutabakat.Business.Abstract
 {
     public interface ICurrencyAccountService
     {
+        IResult AddToExcel(string FileName);
         IDataResult<List<CurrencyAccount>> GetList(int companyId);
         IDataResult<CurrencyAccount> Get(int id);
         IResult Delete(CurrencyAccount currencyAccount);
