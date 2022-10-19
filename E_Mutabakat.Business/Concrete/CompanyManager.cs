@@ -1,12 +1,14 @@
 ﻿using E_Mutabakat.Business.Abstract;
 using E_Mutabakat.Business.Constans;
 using E_Mutabakat.Business.ValidationRules.FluentValidation;
+using E_Mutabakat.Core.Aspect.Autofac.Transaction;
 using E_Mutabakat.Core.Aspect.Autofac.Validation;
 using É_Mutabakat.Core.Ultilities.Result.Abstract;
 using É_Mutabakat.Core.Ultilities.Result.Concrete;
 using E_Mutabakat.DataAccess.Abstract;
 using E_Mutabakat.DataAccess.Concrete.EntityFrameWork;
 using E_Mutabakat.Entities.Concrete;
+using E_Mutabakat.Entities.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +37,14 @@ namespace E_Mutabakat.Business.Concrete
             _companyDal.Add(company);
             return new SuccessResult(Messages.AddCompany);
         }
+        [ValidationAspect(typeof(CompanyValidator))]
+        [TransactionScopeAspect]
+        public IResult AddCompanyAndUserCompany(CompanyDto companyDto)
+        {
+            _companyDal.Add(companyDto.Company);
+            _companyDal.UserCompanyAdd(companyDto.UserId,companyDto.Company.Id);
+            return new SuccessResult(Messages.AddCompany);
+        }
 
         public IResult CompanyExists(Company company)
         {
@@ -47,6 +57,12 @@ namespace E_Mutabakat.Business.Concrete
 
         }
 
+        public IDataResult<Company> GetById(int id)
+        {
+            return new SuccesDataResult<Company>(_companyDal.Get(p=>p.Id==id));
+
+        }
+
         public IDataResult<UserCompany> GetCompany(int userid)
         {
             return new SuccesDataResult<UserCompany>(_companyDal.GetCompany(userid));
@@ -56,6 +72,13 @@ namespace E_Mutabakat.Business.Concrete
         {
 
             return new SuccesDataResult<List<Company>>(_companyDal.GetList());
+        }
+
+        public IResult Update(Company company)
+        {
+            _companyDal.Update(company);
+            return new SuccessResult(Messages.UpdateCompany);
+
         }
 
         public IResult UserCompanyAdd(int userid, int companyid)

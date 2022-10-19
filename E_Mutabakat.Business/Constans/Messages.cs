@@ -8,6 +8,10 @@ namespace E_Mutabakat.Business.Constans
 {
    public class Messages
     {
+        public static string DeleteCurrencyAccount = "cari kaydı başarıyla silindi";
+        public static string UpdateCurrencyAccount = "cari kaydı basariyla guncellendi";
+        public static string AddedCurrencyAccount = "Cari kaydı başarıyla yapildi";
+        public static string UpdateCompany = "şirket bilgileri guncellendi";
         public static string MailConfirmTİmeHasNotExpired = "mail onayini 5 dk da bir gönderebiliriz";
         public static string MailAlreadyConfirm = "mailiniz zaten onaylanmistir tekrar gonderim yapilmadi";
         public static string MailConfirmSendSuccessfull = "maik dogrulaması basarıyla gonderildi";
