@@ -11,10 +11,12 @@ namespace E_Mutabakat.Business.Concrete
    public class AccountReconcilitionManager:IAccountReconcliationService
     {
         private readonly IAccountReconciliationDal _accountReconciliationDal;
-
-        public AccountReconcilitionManager(IAccountReconciliationDal accountReconciliationDal)
+        private readonly ICurrencyAccountService _currencyAccountService;
+        public AccountReconcilitionManager(IAccountReconciliationDal accountReconciliationDal, ICurrencyAccountService currencyAccountService)
         {
             _accountReconciliationDal = accountReconciliationDal;
+            _currencyAccountService = currencyAccountService;
         }
+
     }
 }
