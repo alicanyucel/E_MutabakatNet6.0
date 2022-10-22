@@ -1,6 +1,9 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using E_Mutabakat.Business.DependencyResolvers.Autofac;
+using E_Mutabakat.Core.DependencyResolvers;
+using E_Mutabakat.Core.Extensions;
+using E_Mutabakat.Core.Ultilities.Ioc;
 using E_Mutabakat.Core.Ultilities.Security.Encription;
 using E_Mutabakat.Core.Ultilities.Security.Jwt;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -32,6 +35,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = SecurityKeyHelpers.CreateSecurityKey(tokenOptions.SecurityKey)
     };
+});
+builder.Services.AddDependencyResolvers(new ICoreModule[]
+{
+    new CoreModule(),
 });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

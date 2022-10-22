@@ -64,12 +64,13 @@ namespace E_Mutabakat.Business.Concrete
                                 Authrorized = authorized,
                                 AddedAt = DateTime.Now,
                                 Code = code,
-                                CompanyId=
+                             
                             };
                         }
                     }
                 }
             }
+            return new SuccessResult("ok"); 
         }
         public IResult Delete(CurrencyAccount currencyAccount)
         {
