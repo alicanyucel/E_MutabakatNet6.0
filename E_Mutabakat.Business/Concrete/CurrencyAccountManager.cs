@@ -33,7 +33,7 @@ namespace E_Mutabakat.Business.Concrete
         [ValidationAspect(typeof(CurrencyAccountValidator))]
         [TransactionScopeAspect]
 
-        public IResult AddToExcel(string filepath)
+        public IResult AddToExcel(string filepath, int companyId)
         {
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
             using (var stream = System.IO.File.Open(filepath, FileMode.Open, FileAccess.Read))
@@ -59,18 +59,20 @@ namespace E_Mutabakat.Business.Concrete
                                 Address = address,
                                 TaxDepartment = taxDepartment,
                                 TaxIdentityNumber = taxIdNumber,
-                                IdentityNumber=identityNumber,
+                                IdentityNumber = identityNumber,
                                 Email = email,
                                 Authrorized = authorized,
                                 AddedAt = DateTime.Now,
                                 Code = code,
-                             
+                                CompanyId = companyId,
+                                IsActive = true
                             };
+                            _currencyAccountDal.Add(currencyAccount);
                         }
                     }
                 }
             }
-            return new SuccessResult("ok"); 
+            return new SuccessResult(Messages.AddedCurrencyAccount); 
         }
         public IResult Delete(CurrencyAccount currencyAccount)
         {

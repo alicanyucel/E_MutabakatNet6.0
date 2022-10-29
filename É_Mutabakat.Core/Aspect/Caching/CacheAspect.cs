@@ -1,0 +1,39 @@
+﻿using Castle.DynamicProxy;
+using E_Mutabakat.Core.CrossCuttingConcerns.Caching;
+using E_Mutabakat.Core.Ultilities.InterCeptors;
+using E_Mutabakat.Core.Ultilities.Ioc;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace E_Mutabakat.Core.Aspect.Caching
+{
+    public class CacheAspect:MethodInterCeption
+    {
+        private int _duration;
+        private ICacheManager _cacheManager;
+        public CacheAspect(int duration=68)
+        {
+            _duration = duration;
+            _cacheManager = ServiceTool.ServiceProvider.GetService<ICacheManager>();
+        }
+        public override void Intercept(IInvocation invocation)
+        {
+          var methodName= string.Format($"{invocation.Method.ReflectedType.FullName}.{invocation.Method.Name}");
+            var arguments = invocation.Arguments.ToList();
+            var key=$"{methodName}({string.Join(",",arguments.Select(x=>x?.ToString()?? "<Null>"))})" ;
+            if(_cacheManager.IsAdd(key))
+            {
+                invocation.ReturnValue = _cacheManager.Get(key);
+                return;
+
+            }
+            invocation.Proceed();
+
+            _cacheManager.add(key, invocation.ReturnValue, _duration);
+        }
+    }
+}

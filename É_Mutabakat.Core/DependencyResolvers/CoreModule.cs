@@ -1,4 +1,5 @@
-﻿using E_Mutabakat.Core.Ultilities.Ioc;
+﻿using E_Mutabakat.Core.CrossCuttingConcerns.Caching;
+using E_Mutabakat.Core.Ultilities.Ioc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -16,6 +17,7 @@ namespace E_Mutabakat.Core.DependencyResolvers
             service.AddMemoryCache();
             service.AddSingleton<ICacheManager, MemoryCacheManager>();
             service.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
         }
     }
 }

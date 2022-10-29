@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using E_Mutabakat.Core.Aspect.Autofac.Validation;
 
 namespace E_Mutabakat.Business.Concrete
 {
@@ -18,7 +19,7 @@ namespace E_Mutabakat.Business.Concrete
         {
             _userDal = userDal;
         }
-
+        [ValidationAspect(typeof(UserValidator))]
         public void Add(User user)
         {
            

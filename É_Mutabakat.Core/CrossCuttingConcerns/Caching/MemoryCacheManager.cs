@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace E_Mutabakat.Core.CrossCuttingConcerns.Caching
@@ -42,7 +43,21 @@ namespace E_Mutabakat.Core.CrossCuttingConcerns.Caching
 
         public void RemoveByPattern(string pattern)
         {
-            
+            var cacheExtriesCollectionDefinition = typeof(MemoryCache).GetProperty("EntiresCollection",
+            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            var cacheExtriesCollection = cacheExtriesCollectionDefinition.GetValue(_memoryCache) as dynamic;
+            List<ICacheEntry> cacheCollectionValues = new List<ICacheEntry>();
+            foreach(var cacheItem in cacheExtriesCollection)
+            {
+                ICacheEntry cacheItemValue=cacheItem.GetType().GetProperty("Value").GetValue(cacheItem, null);
+                cacheCollectionValues.Add(cacheItemValue);
+            }
+           var regex=new Regex(pattern,RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            var keyToRemove = cacheCollectionValues.Where(d => regex.IsMatch(d.Key.ToString())).Select(d => d.Key).ToList();
+            foreach ( var key in keyToRemove)
+            {
+                _memoryCache.Remove(key);
+            }
         }
     }
 }
