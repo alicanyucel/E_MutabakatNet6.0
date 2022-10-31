@@ -11,6 +11,7 @@ namespace E_Mutabakat.Entities.Concrete
     {
         public int Id { get; set; }
         public int CompanyId { get; set; }
+        public int CurrencyAccountId { get; set; }
         public DateTime StartingDate { get; set; }
         public DateTime EndingDate { get; set; }
         public int CurrencyId { get; set; }
