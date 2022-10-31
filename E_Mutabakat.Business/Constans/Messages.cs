@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace E_Mutabakat.Business.Constans
 {
-   public class Messages
+    public class Messages
     {
+
+        public static string DeleteAccountReconciliation = "Cari mutabakat kaydi silindi";
+        public static string UpdateAccountReconciliation = "cari mutabakat kaydi guncellendi";
+        public static string AddAccountReconciliatian = "cari mutabakat kaydi eklendi";
         public static string DeleteCurrencyAccount = "cari kaydı başarıyla silindi";
         public static string UpdateCurrencyAccount = "cari kaydı basariyla guncellendi";
         public static string AddedCurrencyAccount = "Cari kaydı başarıyla yapildi";
@@ -20,7 +24,7 @@ namespace E_Mutabakat.Business.Constans
         public static string MailTemplateDeleted = "mesaj silindi";
         public static string MailTemplateAdded = "mesaj eklendi";
         public static string MailSendSuccesfull = "mesaj gonderildi";
-        public static string AddCompany="sirket kaydi basarili olarak yapildi";
+        public static string AddCompany = "sirket kaydi basarili olarak yapildi";
         public static string UserAlreadyExists = "kullanııc zaten var";
         public static string UserNotFound = "Kullanıcı yok";
         public static string SuccessfulLogin = "login basarili";
