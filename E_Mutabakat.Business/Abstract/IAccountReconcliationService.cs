@@ -11,6 +11,7 @@ namespace E_Mutabakat.Business.Abstract
    public interface IAccountReconcliationService
     {
         IResult Add(AccountReconclition accountReconciliation);
+        IResult AddToExcel(string filePath, int companyId);
         IResult Update(AccountReconclition accountReconclition);
         IResult Delete(AccountReconclition accountReconclition);
         IDataResult<AccountReconclition> GetById(int id);
