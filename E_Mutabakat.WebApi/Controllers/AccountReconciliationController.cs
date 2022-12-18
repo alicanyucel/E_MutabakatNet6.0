@@ -58,8 +58,8 @@ namespace E_Mutabakat.WebApi.Controllers
             }
             return BadRequest(result.Message);
         }
-        [HttpPost("addFromExcel")]
-        public IActionResult AddfromExcel(IFormFile file, int companyId)
+        [HttpPost("addFromExcels")]
+        public IActionResult AddFromExcels(IFormFile file, int companyId)
         {
             if (file.Length > 0)
             {
@@ -70,7 +70,7 @@ namespace E_Mutabakat.WebApi.Controllers
                     file.CopyTo(stream);
                     stream.Flush();
                 }
-                var result = _accountReconcliationService.AddToExcel(filePath, companyId);
+                var result = _accountReconcliationService.AddExcel(filePath, companyId);
                 if (result.Success)
                 {
                     return Ok(result);

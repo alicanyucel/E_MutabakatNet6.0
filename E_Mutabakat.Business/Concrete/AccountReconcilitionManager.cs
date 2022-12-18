@@ -7,6 +7,7 @@ using E_Mutabakat.DataAccess.Abstract;
 using E_Mutabakat.DataAccess.Concrete.EntityFrameWork;
 using E_Mutabakat.Entities.Concrete;
 using ExcelDataReader;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace E_Mutabakat.Business.Concrete
 {
-   public class AccountReconcilitionManager:IAccountReconcliationService
+    public class AccountReconcilitionManager : IAccountReconcliationService
     {
         private readonly IAccountReconciliationDal _accountReconciliationDal;
         private readonly ICurrencyAccountService _currencyAccountService;
@@ -31,44 +32,100 @@ namespace E_Mutabakat.Business.Concrete
             _accountReconciliationDal.Add(accountReconciliation);
             return new SuccessResult(Messages.AddAccountReconciliatian);
         }
+
+       
+
         [TransactionScopeAspect]
-        public IResult AddToExcel(string Filepath, int companyId)
+        public IResult AddExcel(string filePath, int companyId)
+
         {
+
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
-            using (var stream = System.IO.File.Open(Filepath, FileMode.Open, FileAccess.Read))
+
+            using (var stream = System.IO.File.Open(filePath, FileMode.Open, FileAccess.Read))
+
             {
+
                 using (var reader = ExcelReaderFactory.CreateReader(stream))
+
                 {
+
+
+
+
+
                     while (reader.Read())
+
                     {
+
                         string code = reader.GetString(0);
-                        string startingDate =reader.GetString(1);
-                        string endingDate =reader.GetString(2);
-                        string currencyId =reader.GetString(3);
-                        string debit =reader.GetString(4);
-                        string credit =reader.GetString(5);
-                       
+
+
+
+
 
                         if (code != "Cari Kodu")
+
                         {
-                           int currencyAcountId = _currencyAccountService.GetByCode(code, companyId).Data.Id;
-                            AccountReconclition accountReconclition = new AccountReconclition()
+
+                            if (code != null)
+
                             {
 
-                                CompanyId = companyId,
-                                CurrencyAccountId =currencyAcountId,
-                                CurrencyId = Convert.ToInt32(currencyId),
-                                CurrenyCredit = Convert.ToDecimal(credit),
-                                CurrencyDebit = Convert.ToDecimal(debit),
-                                StartingDate = Convert.ToDateTime(startingDate),
-                                EndingDate = Convert.ToDateTime(endingDate)
-                            };
-                            _accountReconciliationDal.Add(accountReconclition);
+                                string startingDate = Convert.ToDateTime(reader.GetValue(1)).ToString("dd/MM/yyyy");
+
+                                string endingDate = Convert.ToDateTime(reader.GetValue(1)).ToString("dd/MM/yyyy");
+
+                                string currencyId = reader.GetValue(3).ToString();
+
+                                string debit = reader.GetValue(4).ToString();
+
+                                string credit = reader.GetValue(5).ToString();
+
+
+
+                                //int CurrencyAccountId = _currencyAccountService.GetByCode(code, companyId).Data.Id;
+
+                                AccountReconclition accountReconciliation = new AccountReconclition()
+
+                                {
+
+                                    CompanyId = companyId,
+
+                                    //CurrencyAccountId = CurrencyAccountId,
+
+                                    CurrenyCredit = Convert.ToDecimal(credit),
+
+                                    CurrencyDebit = Convert.ToDecimal(debit),
+
+                                    CurrencyId = Convert.ToInt16(currencyId),
+
+                                    StartingDate = Convert.ToDateTime(startingDate),
+
+                                    EndingDate = Convert.ToDateTime(endingDate),
+
+                                };
+
+                                _accountReconciliationDal.Add(accountReconciliation);
+
+                            }
+
+
+
                         }
+
                     }
+
+
+
+
+
                 }
+
             }
+
             return new SuccessResult(Messages.AddedCurrencyAccount);
+
         }
 
         public IResult Delete(AccountReconclition accountReconclition)
@@ -86,8 +143,8 @@ namespace E_Mutabakat.Business.Concrete
         public IDataResult<List<AccountReconclition>> GetList(int companyid)
         {
             return new SuccesDataResult<List<AccountReconclition>>(_accountReconciliationDal.GetList(p => p.CompanyId == companyid));
-                
-           
+
+
         }
 
         public IResult Update(AccountReconclition accountReconclition)
