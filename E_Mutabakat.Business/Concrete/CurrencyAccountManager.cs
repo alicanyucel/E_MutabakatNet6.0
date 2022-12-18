@@ -10,6 +10,7 @@ using E_Mutabakat.Entities.Concrete;
 using ExcelDataReader;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -84,6 +85,17 @@ namespace E_Mutabakat.Business.Concrete
         {
             return new SuccesDataResult<CurrencyAccount>(_currencyAccountDal.Get(p => p.Id == id));
 
+        }
+
+        public IDataResult<CurrencyAccount> GetByCode(string code, int companyId)
+        {
+            return new SuccesDataResult<CurrencyAccount>(_currencyAccountDal.Get(p => p.Code==code && p.CompanyId==companyId));
+            
+        }
+
+        public IDataResult<CurrencyAccount> GetByCode(string code, string companyId)
+        {
+            throw new NotImplementedException();
         }
 
         public IDataResult<List<CurrencyAccount>> GetList(int companyId)

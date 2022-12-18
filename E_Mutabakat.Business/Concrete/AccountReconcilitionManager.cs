@@ -10,6 +10,7 @@ using ExcelDataReader;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -31,46 +32,43 @@ namespace E_Mutabakat.Business.Concrete
             return new SuccessResult(Messages.AddAccountReconciliatian);
         }
         [TransactionScopeAspect]
-        public IResult AddToExcel(string filepath, int companyId)
+        public IResult AddToExcel(string Filepath, int companyId)
         {
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
-            using (var stream = System.IO.File.Open(filepath, FileMode.Open, FileAccess.Read))
+            using (var stream = System.IO.File.Open(Filepath, FileMode.Open, FileAccess.Read))
             {
                 using (var reader = ExcelReaderFactory.CreateReader(stream))
                 {
                     while (reader.Read())
                     {
                         string code = reader.GetString(0);
-                        string name = reader.GetString(1);
-                        string address = reader.GetString(2);
-                        string taxDepartment = reader.GetString(3);
-                        string taxIdNumber = reader.GetString(4);
-                        string identityNumber = reader.GetString(5);
-                        string email = reader.GetString(6);
-                        string authorized = reader.GetString(7);
+                        string startingDate =reader.GetString(1);
+                        string endingDate =reader.GetString(2);
+                        string currencyId =reader.GetString(3);
+                        string debit =reader.GetString(4);
+                        string credit =reader.GetString(5);
+                       
 
                         if (code != "Cari Kodu")
                         {
-                            CurrencyAccount currencyAccount = new CurrencyAccount()
+                           int currencyAcountId = _currencyAccountService.GetByCode(code, companyId).Data.Id;
+                            AccountReconclition accountReconclition = new AccountReconclition()
                             {
-                                Name = name,
-                                Address = address,
-                                TaxDepartment = taxDepartment,
-                                TaxIdentityNumber = taxIdNumber,
-                                IdentityNumber = identityNumber,
-                                Email = email,
-                                Authrorized = authorized,
-                                AddedAt = DateTime.Now,
-                                Code = code,
-                                CompanyId = companyId,
-                                IsActive = true
-                            };
-                            _currencyAccountDal.Add(currencyAccount);
-                        }
 
+                                CompanyId = companyId,
+                                CurrencyAccountId =currencyAcountId,
+                                CurrencyId = Convert.ToInt32(currencyId),
+                                CurrenyCredit = Convert.ToDecimal(credit),
+                                CurrencyDebit = Convert.ToDecimal(debit),
+                                StartingDate = Convert.ToDateTime(startingDate),
+                                EndingDate = Convert.ToDateTime(endingDate)
+                            };
+                            _accountReconciliationDal.Add(accountReconclition);
+                        }
                     }
                 }
             }
+            return new SuccessResult(Messages.AddedCurrencyAccount);
         }
 
         public IResult Delete(AccountReconclition accountReconclition)

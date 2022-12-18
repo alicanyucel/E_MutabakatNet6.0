@@ -58,6 +58,28 @@ namespace E_Mutabakat.WebApi.Controllers
             }
             return BadRequest(result.Message);
         }
+        [HttpPost("addFromExcel")]
+        public IActionResult AddfromExcel(IFormFile file, int companyId)
+        {
+            if (file.Length > 0)
+            {
+                var fileName = Guid.NewGuid().ToString() + ".xlsx";
+                var filePath = $"{Directory.GetCurrentDirectory()}/Content/{fileName}";
+                using (FileStream stream = System.IO.File.Create(filePath))
+                {
+                    file.CopyTo(stream);
+                    stream.Flush();
+                }
+                var result = _accountReconcliationService.AddToExcel(filePath, companyId);
+                if (result.Success)
+                {
+                    return Ok(result);
+                }
+
+                return BadRequest(result.Message);
+            }
+            return BadRequest("Dosya secimi yapmadiniz");
+        }
         [HttpPost("add")]
         public IActionResult Add(AccountReconclition accountReconclition)
         {

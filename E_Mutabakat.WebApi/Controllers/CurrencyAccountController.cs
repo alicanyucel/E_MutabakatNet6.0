@@ -15,8 +15,8 @@ namespace E_Mutabakat.WebApi.Controllers
         {
             _currencyAccountService = currencyAccountService;
         }
-        [HttpPost("addFromExcel")]
-        public IActionResult AddfromExcel(IFormFile file,int companyId)
+        [HttpPost("addFromExcels")]
+        public IActionResult AddfromExcels(IFormFile file,int companyId)
         {
             if (file.Length > 0)
             {

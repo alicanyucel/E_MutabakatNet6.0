@@ -13,6 +13,7 @@ namespace E_Mutabakat.Business.Abstract
         IResult AddToExcel(string FileName,int companyId);
         IDataResult<List<CurrencyAccount>> GetList(int companyId);
         IDataResult<CurrencyAccount> Get(int id);
+        IDataResult<CurrencyAccount> GetByCode(string code,int companyId);
         IResult Delete(CurrencyAccount currencyAccount);
         IResult Update(CurrencyAccount currencyAccount);
         IResult Add(CurrencyAccount currenycAccount);

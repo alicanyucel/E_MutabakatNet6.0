@@ -8,5 +8,6 @@ namespace E_Mutabakat.Business.Abstract
 {
    public interface IBabsReconciliationService
     {
+
     }
 }
