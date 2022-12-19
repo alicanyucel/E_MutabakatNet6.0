@@ -69,7 +69,8 @@ namespace E_Mutabakat.Business.Concrete
                                 Total = Convert.ToDecimal(total)
                                 
                             };
-
+                            // işlem sonunda dosyayı sil
+                            File.Delete(filepath);
                             _babsdal.Add(baBsReconciliation);
                         }
                     }
