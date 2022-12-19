@@ -33,7 +33,7 @@ namespace E_Mutabakat.Business.Concrete
         {
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
             using (var stream = System.IO.File.Open(filepath, FileMode.Open, FileAccess.Read))
-            {
+            {//
                 using (var reader = ExcelReaderFactory.CreateReader(stream))
                 {
                     while (reader.Read())
