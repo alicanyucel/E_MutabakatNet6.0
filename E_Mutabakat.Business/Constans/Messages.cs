@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Castle.DynamicProxy;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +10,12 @@ namespace E_Mutabakat.Business.Constans
 {
     public class Messages
     {
+        public static string AddedBabsReconciliationDetail = "babs mutabakat detayı eklendi";
+        public static string DeletedBabsReconciliationDetail = "babs mutabakatı detayı silindi";
+        public static string UpdatedBabsReconciliationDetail = "babs mutabakatı detayı güncellendi";
+        public static string DeletedBabsReconciliation = "babs mutabakatı silindi";
+        public static string UpdatedBabsReconciliation = "babs mutabakatı güncellendi";
+        public static string AddedBabsReconciliation = "babs mutabakatı eklendi";
         public static string AddedAccountReconciliationDetail = "Cari mutabakat detayı eklendi";
         public static string UpdateAccountReconciliationDetail = "Cari mutabakat deayı güncellendi";
         public static string DeleteAccountReconciliationDetail = "Cari mutabakat detayi silindi";

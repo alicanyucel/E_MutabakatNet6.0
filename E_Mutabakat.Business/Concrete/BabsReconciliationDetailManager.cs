@@ -10,10 +10,6 @@ namespace E_Mutabakat.Business.Concrete
 {
     public class BabsReconciliationDetailManager:IBabsReconciliationDetailService
     {
-        private readonly IBabsReconciliationDetailDal _babsReconciliationDetailDal;
-        public BabsReconciliationDetailManager(IBabsReconciliationDetailDal babsReconciliationDetailDal)
-        {
-            _babsReconciliationDetailDal = babsReconciliationDetailDal;
-        }
+       
     }
 }
