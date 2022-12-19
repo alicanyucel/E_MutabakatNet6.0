@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace E_Mutabakat.DataAccess.Abstract
 {
-    public interface IAccountReconciliationDal:IEntityRepository<AccountReconclition>
+    public interface IAccountReconciliationDal:IEntityRepository<AccountReconclitionDetail>
     {
     }
 }

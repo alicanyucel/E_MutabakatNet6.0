@@ -8,7 +8,9 @@ namespace E_Mutabakat.Business.Constans
 {
     public class Messages
     {
-
+        public static string AddedAccountReconciliationDetail = "Cari mutabakat detayı eklendi";
+        public static string UpdateAccountReconciliationDetail = "Cari mutabakat deayı güncellendi";
+        public static string DeleteAccountReconciliationDetail = "Cari mutabakat detayi silindi";
         public static string DeleteAccountReconciliation = "Cari mutabakat kaydi silindi";
         public static string UpdateAccountReconciliation = "cari mutabakat kaydi guncellendi";
         public static string AddAccountReconciliatian = "cari mutabakat kaydi eklendi";

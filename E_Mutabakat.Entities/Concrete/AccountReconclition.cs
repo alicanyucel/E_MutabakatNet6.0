@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace E_Mutabakat.Entities.Concrete
 {
-   public class AccountReconclition:IEntity
+   public class AccountReconclitionDetail:IEntity
     {
         public int Id { get; set; }
         public int CompanyId { get; set; }

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace E_Mutabakat.DataAccess.Concrete.EntityFrameWork
 {
-    public class EfAccountReconcitiationDal:EfEntityFrameworkBase<AccountReconclition,ContextDb>,IAccountReconciliationDal
+    public class EfAccountReconcitiationDal:EfEntityFrameworkBase<AccountReconclitionDetail,ContextDb>,IAccountReconciliationDal
     {
     }
 }

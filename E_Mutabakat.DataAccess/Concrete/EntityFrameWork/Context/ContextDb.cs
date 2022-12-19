@@ -15,7 +15,7 @@ namespace E_Mutabakat.DataAccess.Concrete.EntityFrameWork.Context
             optionsBuilder.UseSqlServer(@"Server=DESKTOP-ROTCU0Q;initial catalog=eReconcliations;integrated security=true");
         }
         public DbSet<User> Users { get; set; }
-        public DbSet<AccountReconclition> AccountReconclitions { get; set; }
+        public DbSet<AccountReconclitionDetail> AccountReconclitions { get; set; }
         public DbSet<BaBsReconcilition> BaBsReconcilitions { get; set; }
         public DbSet<BaBsReconcilitionsDetail> BabsReconcilitionsDetails { get; set; }
         public DbSet<Company> Companies { get; set; }
