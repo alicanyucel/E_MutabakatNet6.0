@@ -27,7 +27,7 @@ namespace E_Mutabakat.Business.Concrete
             _currencyAccountService = currencyAccountService;
         }
 
-        public IResult Add(AccountReconclitionDetail accountReconciliation)
+        public IResult Add(AccountReconclition accountReconciliation)
         {
             _accountReconciliationDal.Add(accountReconciliation);
             return new SuccessResult(Messages.AddAccountReconciliatian);
@@ -86,7 +86,7 @@ namespace E_Mutabakat.Business.Concrete
 
                                 //int CurrencyAccountId = _currencyAccountService.GetByCode(code, companyId).Data.Id;
 
-                                AccountReconclitionDetail accountReconciliation = new AccountReconclitionDetail()
+                                AccountReconclition accountReconciliation = new AccountReconclition()
 
                                 {
 
@@ -128,26 +128,26 @@ namespace E_Mutabakat.Business.Concrete
 
         }
 
-        public IResult Delete(AccountReconclitionDetail accountReconclition)
+        public IResult Delete(AccountReconclition accountReconclition)
         {
             _accountReconciliationDal.Delete(accountReconclition);
             return new SuccessResult(Messages.DeleteAccountReconciliation);
         }
 
-        public IDataResult<AccountReconclitionDetail> GetById(int id)
+        public IDataResult<AccountReconclition> GetById(int id)
         {
-            return new SuccesDataResult<AccountReconclitionDetail>(_accountReconciliationDal.Get(p => p.Id == id));
+            return new SuccesDataResult<AccountReconclition>(_accountReconciliationDal.Get(p => p.Id == id));
 
         }
 
-        public IDataResult<List<AccountReconclitionDetail>> GetList(int companyid)
+        public IDataResult<List<AccountReconclition>> GetList(int companyid)
         {
-            return new SuccesDataResult<List<AccountReconclitionDetail>>(_accountReconciliationDal.GetList(p => p.CompanyId == companyid));
+            return new SuccesDataResult<List<AccountReconclition>>(_accountReconciliationDal.GetList(p => p.CompanyId == companyid));
 
 
         }
 
-        public IResult Update(AccountReconclitionDetail accountReconclition)
+        public IResult Update(AccountReconclition accountReconclition)
         {
             _accountReconciliationDal.Update(accountReconclition);
             return new SuccessResult(Messages.UpdateAccountReconciliation);

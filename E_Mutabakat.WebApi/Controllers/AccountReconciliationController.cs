@@ -16,7 +16,7 @@ namespace E_Mutabakat.WebApi.Controllers
         }
 
         [HttpDelete("Delete")]
-        public IActionResult Delete(AccountReconclitionDetail accountReconclition)
+        public IActionResult Delete(AccountReconclition accountReconclition)
         {
             var result = _accountReconcliationService.Delete(accountReconclition);
             if(result.Success)
@@ -49,8 +49,9 @@ namespace E_Mutabakat.WebApi.Controllers
             return BadRequest(result.Message);
         }
         [HttpPut("Update")]
-        public IActionResult Update(AccountReconclitionDetail accountReconclition)
+        public IActionResult Update(AccountReconclition accountReconclition)
         {
+
             var result = _accountReconcliationService.Update(accountReconclition);
             if(result.Success)
             {
@@ -81,7 +82,7 @@ namespace E_Mutabakat.WebApi.Controllers
             return BadRequest("Dosya secimi yapmadiniz");
         }
         [HttpPost("add")]
-        public IActionResult Add(AccountReconclitionDetail accountReconclition)
+        public IActionResult Add(AccountReconclition accountReconclition)
         {
             var result = _accountReconcliationService.Add(accountReconclition);
             if(result.Success)

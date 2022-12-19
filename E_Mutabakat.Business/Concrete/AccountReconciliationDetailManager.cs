@@ -21,7 +21,7 @@ namespace E_Mutabakat.Business.Concrete
             _accountReconciliationDetailDal = accountReconciliationDetailDal;
         }
 
-        public IResult Add(AccountReconclitionDetail accountReconciliationDetail)
+        public IResult Add(AccountReconcilitionDetail accountReconciliationDetail)
         {
             _accountReconciliationDetailDal.Add(accountReconciliationDetail);
             return new SuccessResult(Messages.AddedAccountReconciliationDetail);
@@ -32,23 +32,23 @@ namespace E_Mutabakat.Business.Concrete
             throw new NotImplementedException();
         }
 
-        public IResult Delete(AccountReconclitionDetail accountReconclitionDetail)
+        public IResult Delete(AccountReconcilitionDetail accountReconclitionDetail)
         {
             _accountReconciliationDetailDal.Delete(accountReconclitionDetail);
             return new SuccessResult(Messages.DeleteAccountReconciliationDetail);
         }
 
-        public IDataResult<AccountReconclitionDetail> GetById(int id)
+        public IDataResult<AccountReconcilitionDetail> GetById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IDataResult<List<AccountReconclitionDetail>> GetList(int companyid)
+        public IDataResult<List<AccountReconcilitionDetail>> GetList(int companyid)
         {
             throw new NotImplementedException();
         }
 
-        public IResult Update(AccountReconclitionDetail accountReconclitionDetail)
+        public IResult Update(AccountReconcilitionDetail accountReconclitionDetail)
         {
             _accountReconciliationDetailDal.Update(accountReconclitionDetail);
             return new SuccessResult(Messages.UpdateAccountReconciliationDetail);

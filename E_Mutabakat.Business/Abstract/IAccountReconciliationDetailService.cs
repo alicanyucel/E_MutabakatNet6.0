@@ -10,12 +10,12 @@ namespace E_Mutabakat.Business.Abstract
 {
     public interface IAccountReconciliationDetailService
     {
-        IResult Add(AccountReconclitionDetail accountReconciliationDetail);
+        IResult Add(AccountReconcilitionDetail accountReconciliationDetail);
         IResult AddExcel(string filepath, int companyId);
-        IResult Update(AccountReconclitionDetail accountReconclitionDetail);
-        IResult Delete(AccountReconclitionDetail accountReconclitionDetail);
-        IDataResult<AccountReconclitionDetail> GetById(int id);
-        IDataResult<List<AccountReconclitionDetail>> GetList(int companyid);
+        IResult Update(AccountReconcilitionDetail accountReconclitionDetail);
+        IResult Delete(AccountReconcilitionDetail accountReconclitionDetail);
+        IDataResult<AccountReconcilitionDetail> GetById(int id);
+        IDataResult<List<AccountReconcilitionDetail>> GetList(int companyid);
 
     }
 }
