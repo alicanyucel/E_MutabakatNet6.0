@@ -11,11 +11,11 @@ namespace E_Mutabakat.Business.Abstract
     public interface IAccountReconciliationDetailService
     {
         IResult Add(AccountReconcilitionDetail accountReconciliationDetail);
-        IResult AddExcel(string filepath, int companyId);
+        IResult AddExcel(string filepath, int accountReconciliationId);
         IResult Update(AccountReconcilitionDetail accountReconclitionDetail);
         IResult Delete(AccountReconcilitionDetail accountReconclitionDetail);
         IDataResult<AccountReconcilitionDetail> GetById(int id);
-        IDataResult<List<AccountReconcilitionDetail>> GetList(int companyid);
+        IDataResult<List<AccountReconcilitionDetail>> GetList(int arId);
 
     }
 }
