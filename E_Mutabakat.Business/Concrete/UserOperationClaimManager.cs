@@ -57,7 +57,7 @@ namespace E_Mutabakat.Business.Concrete
     {
         return new SuccesDataResult<List<UserOperationClaimDto>>(_userOperationClaimDal.GetListDto(userId, companyId));
     }
-
+        // devam
     [SecurityOperation("Admin,UserOperationClaim.Update")]
     public IResult Update(UserOperationClaim userOperationClaim)
     {
