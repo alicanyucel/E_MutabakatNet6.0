@@ -10,6 +10,9 @@ namespace E_Mutabakat.Business.Constans
 {
     public class Messages
     {
+        public static string DeletedOperationClaim = "operation claim silindi";
+        public  static string UpdatedOperationClaim="operation claim güncellendi";
+        public static string AddedOperationClaim = " operation claim eklendi";
         public static string AddedBabsReconciliationDetail = "babs mutabakat detayı eklendi";
         public static string DeletedBabsReconciliationDetail = "babs mutabakatı detayı silindi";
         public static string UpdatedBabsReconciliationDetail = "babs mutabakatı detayı güncellendi";

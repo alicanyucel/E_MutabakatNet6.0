@@ -53,6 +53,16 @@ namespace E_Mutabakat.Business.DependencyResolvers.Autofac
             builder.RegisterType<MailTemplateManager>().As<IMailTemplateService>();
             builder.RegisterType<EfMailTemplateDal>().As<IMailTemplateDal>();
 
+
+
+
+
+            builder.RegisterType<OperationClaimManager>().As<IOperationClaimService>();
+            builder.RegisterType<EfOperationClaimDal>().As<IOpetationClaimDal>();
+
+
+
+
             builder.RegisterType<AuthManager>().As<IAuthService>();
             builder.RegisterType<JwtHelpers>().As<ITokenHelpers>();
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();

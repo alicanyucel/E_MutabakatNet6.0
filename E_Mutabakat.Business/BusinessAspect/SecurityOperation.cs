@@ -32,7 +32,7 @@ namespace E_Mutabakat.Business.BusinessAspect
                    }
 
             }
-            throw new Exception("isle yapmaya yetkiniz yok");
+            throw new Exception("islem yapmaya yetkiniz yok");
 }
     }
 }
