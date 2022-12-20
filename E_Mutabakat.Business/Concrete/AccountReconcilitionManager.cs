@@ -1,6 +1,7 @@
 ﻿using E_Mutabakat.Business.Abstract;
 using E_Mutabakat.Business.Constans;
 using E_Mutabakat.Core.Aspect.Autofac.Transaction;
+using E_Mutabakat.Core.Aspect.Caching;
 using É_Mutabakat.Core.Ultilities.Result.Abstract;
 using É_Mutabakat.Core.Ultilities.Result.Concrete;
 using E_Mutabakat.DataAccess.Abstract;
@@ -33,8 +34,8 @@ namespace E_Mutabakat.Business.Concrete
             return new SuccessResult(Messages.AddAccountReconciliatian);
         }
 
-       
 
+        [CacheRemoveAspect("IAccountReconciliationDal.Get")]
         [TransactionScopeAspect]
         public IResult AddExcel(string filePath, int companyId)
 
@@ -139,7 +140,7 @@ namespace E_Mutabakat.Business.Concrete
             return new SuccesDataResult<AccountReconclition>(_accountReconciliationDal.Get(p => p.Id == id));
 
         }
-
+        [CacheAspect(60)]
         public IDataResult<List<AccountReconclition>> GetList(int companyid)
         {
             return new SuccesDataResult<List<AccountReconclition>>(_accountReconciliationDal.GetList(p => p.CompanyId == companyid));

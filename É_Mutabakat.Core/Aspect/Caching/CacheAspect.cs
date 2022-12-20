@@ -15,7 +15,7 @@ namespace E_Mutabakat.Core.Aspect.Caching
     {
         private int _duration;
         private ICacheManager _cacheManager;
-        public CacheAspect(int duration=68)
+        public CacheAspect(int duration=60)
         {
             _duration = duration;
             _cacheManager = ServiceTool.ServiceProvider.GetService<ICacheManager>();
