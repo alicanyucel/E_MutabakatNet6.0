@@ -10,6 +10,9 @@ namespace E_Mutabakat.Business.Constans
 {
     public class Messages
     {
+        public static string UpdateUserOperationClaim = "User Operation Claim Güncellendi";
+        public static string DeletedUserOperationClaim = "User Operation Claim Silindi";
+        public static string AddUserOperationClaim = "User Operation Claim Eklendi";
         public static string DeletedOperationClaim = "operation claim silindi";
         public  static string UpdatedOperationClaim="operation claim güncellendi";
         public static string AddedOperationClaim = " operation claim eklendi";

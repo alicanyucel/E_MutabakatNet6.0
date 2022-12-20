@@ -18,56 +18,49 @@ namespace E_Mutabakat.Business.Concrete
     {
         private readonly IUserOperationClaimDal _userOperationClaimDal;
 
+      
+
         public UserOperationClaimManager(IUserOperationClaimDal userOperationClaimDal)
         {
             _userOperationClaimDal = userOperationClaimDal;
         }
-        
-        
 
         [SecurityOperation("Admin,UserOperationClaim.Add")]
-  
-        
         public IResult Add(UserOperationClaim userOperationClaim)
-    {
-        _userOperationClaimDal.Add(userOperationClaim);
-        return new SuccessResult(Messages.AddedUserOperationClaim);
-    }
-
-    [SecurityOperation("Admin,UserOperationClaim.Delete")]
-    public IResult Delete(UserOperationClaim userOperationClaim)
-    {
-        _userOperationClaimDal.Delete(userOperationClaim);
-        return new SuccessResult(Messages.DeletedUserOperationClaim);
-    }
-
-    [SecurityOperation("Admin,UserOperationClaim.Get")]
-    public IDataResult<UserOperationClaim> GetById(int id)
-    {
-        return new SuccesDataResult<UserOperationClaim>(_userOperationClaimDal.Get(i => i.Id == id));
-    }
-
-    [SecurityOperation("Admin,UserOperationClaim.GetList")]
-    public IDataResult<List<UserOperationClaim>> GetList(int userId, int companyId)
-    {
-        return new SuccesDataResult<List<UserOperationClaim>>(_userOperationClaimDal.GetList(p => p.UserId == userId && p.CompanyId == companyId));
-    }
-
-    public IDataResult<List<UserOperationClaimDto>> GetListDto(int userId, int companyId)
-    {
-        return new SuccesDataResult<List<UserOperationClaimDto>>(_userOperationClaimDal.GetListDto(userId, companyId));
-    }
-        // devam
-    [SecurityOperation("Admin,UserOperationClaim.Update")]
-    public IResult Update(UserOperationClaim userOperationClaim)
-    {
-        _userOperationClaimDal.Update(userOperationClaim);
-        return new SuccessResult(Messages.UpdatedUserOperationClaim);
-    }
-
-        IDataResult<List<UserOperationClaimDto>> IUserOperationClaimService.GetListDto(int userId, int companyId)
         {
-            throw new NotImplementedException();
+            _userOperationClaimDal.Add(userOperationClaim);
+            return new SuccessResult(Messages.AddUserOperationClaim);
+        }
+
+        [SecurityOperation("Admin,UserOperationClaim.Delete")]
+        public IResult Delete(UserOperationClaim userOperationClaim)
+        {
+            _userOperationClaimDal.Delete(userOperationClaim);
+            return new SuccessResult(Messages.DeletedUserOperationClaim);
+        }
+
+        [SecurityOperation("Admin,UserOperationClaim.Get")]
+        public IDataResult<UserOperationClaim> GetById(int id)
+        {
+            return new SuccesDataResult<UserOperationClaim>(_userOperationClaimDal.Get(i => i.Id == id));
+        }
+
+        [SecurityOperation("Admin,UserOperationClaim.GetList")]
+        public IDataResult<List<UserOperationClaim>> GetList(int userId, int companyId)
+        {
+            return new SuccesDataResult<List<UserOperationClaim>>(_userOperationClaimDal.GetList(p => p.UserId == userId && p.CompanyId == companyId));
+        }
+
+        public IDataResult<List<UserOperationClaimDto>> GetListDto(int userId, int companyId)
+        {
+            return new SuccesDataResult<List<UserOperationClaimDto>>(_userOperationClaimDal.GetListDto(userId, companyId));
+        }
+
+        [SecurityOperation("Admin,UserOperationClaim.Update")]
+        public IResult Update(UserOperationClaim userOperationClaim)
+        {
+            _userOperationClaimDal.Update(userOperationClaim);
+            return new SuccessResult(Messages.UpdateUserOperationClaim);
         }
     }
 }

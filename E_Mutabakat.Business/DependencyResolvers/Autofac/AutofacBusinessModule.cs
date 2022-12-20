@@ -55,8 +55,9 @@ namespace E_Mutabakat.Business.DependencyResolvers.Autofac
 
 
 
-
-
+             // autofac ıoc eklendi....
+            builder.RegisterType<UserOperationClaimManager>().As<IUserOperationClaimService>();
+            builder.RegisterType<EfUserOperationClaimDal>().As<IUserOperationClaimDal>();
             builder.RegisterType<OperationClaimManager>().As<IOperationClaimService>();
             builder.RegisterType<EfOperationClaimDal>().As<IOpetationClaimDal>();
 
