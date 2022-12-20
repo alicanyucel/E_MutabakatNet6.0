@@ -1,4 +1,5 @@
 ﻿using E_Mutabakat.Business.Abstract;
+using E_Mutabakat.Business.BusinessAspect;
 using E_Mutabakat.Business.Constans;
 using E_Mutabakat.Core.Aspect.Autofac.Transaction;
 using E_Mutabakat.Core.Aspect.Caching;
@@ -27,7 +28,10 @@ namespace E_Mutabakat.Business.Concrete
             _accountReconciliationDal = accountReconciliationDal;
             _currencyAccountService = currencyAccountService;
         }
-
+        // securedde aşağıdaki seyden alınır
+        [SecurityOperation("AccountReconclition.Add")]
+        // cacheaspcetde ise servisten get ile alınır.
+        [CacheRemoveAspect("IAccountReconcliationService.Get")]
         public IResult Add(AccountReconclition accountReconciliation)
         {
             _accountReconciliationDal.Add(accountReconciliation);
@@ -35,7 +39,7 @@ namespace E_Mutabakat.Business.Concrete
         }
 
 
-        [CacheRemoveAspect("IAccountReconciliationDal.Get")]
+        [CacheRemoveAspect("IAccountReconcliationService.Get")]
         [TransactionScopeAspect]
         public IResult AddExcel(string filePath, int companyId)
 
@@ -128,7 +132,7 @@ namespace E_Mutabakat.Business.Concrete
             return new SuccessResult(Messages.AddAccountReconciliatian);
 
         }
-
+        [CacheRemoveAspect("IAccountReconcliationService.Get")]
         public IResult Delete(AccountReconclition accountReconclition)
         {
             _accountReconciliationDal.Delete(accountReconclition);
@@ -140,6 +144,7 @@ namespace E_Mutabakat.Business.Concrete
             return new SuccesDataResult<AccountReconclition>(_accountReconciliationDal.Get(p => p.Id == id));
 
         }
+        [CacheRemoveAspect("IAccountReconcliationService.Get")]
         [CacheAspect(60)]
         public IDataResult<List<AccountReconclition>> GetList(int companyid)
         {
@@ -147,7 +152,7 @@ namespace E_Mutabakat.Business.Concrete
 
 
         }
-
+        [CacheRemoveAspect("IAccountReconcliationService.Get")]
         public IResult Update(AccountReconclition accountReconclition)
         {
             _accountReconciliationDal.Update(accountReconclition);
