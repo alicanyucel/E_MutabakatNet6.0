@@ -1,5 +1,8 @@
 ﻿using E_Mutabakat.Business.Abstract;
+using E_Mutabakat.Business.BusinessAspect;
 using E_Mutabakat.Business.Constans;
+using E_Mutabakat.Core.Aspect.Caching;
+using E_Mutabakat.Core.Aspect.Performance;
 using É_Mutabakat.Core.Ultilities.Result.Abstract;
 using É_Mutabakat.Core.Ultilities.Result.Concrete;
 using E_Mutabakat.DataAccess.Abstract;
@@ -22,6 +25,9 @@ namespace E_Mutabakat.Business.Concrete
         {
             _accountReconciliationDetailDal = accountReconciliationDetailDal;
         }
+        [PerformanceAspect(3)]
+        [SecurityOperation("AccountReconcilitionDetail.Add,Admin")]
+        [CacheRemoveAspect("AccountReconcilitionDetail.Get")]
 
         public IResult Add(AccountReconcilitionDetail accountReconciliationDetail)
         {
